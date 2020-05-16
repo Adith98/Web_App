@@ -1,0 +1,98 @@
+{% extends "triple_M/mentor/mentor_dash.html" %}
+{% load static %}
+
+{% block content %}
+    <div class="container mt-4">
+        <div class="h5 signika">
+            {% if profile_photo %}
+                <img class="d-inline-block img-thumbnail align-center"
+                     src="/media/{{ profile_photo }}" width="80">
+            {% endif %}
+
+            {{ reg_no }}: {{ mentee.first_name }} {{ mentee.last_name }}
+        </div>
+
+        <div class="mt-4 mb-4">
+            <h3 class="h5 mb-0 text-secondary signika">Verification of Details</h3>
+        </div>
+
+        <div class="mb-3">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-3 mb-2 check-details">
+                        <a class="card card-info nunito font-weight-bold"
+                           href="{% url 'triple_M:mentor-student' reg_no 'personal_detail' %}">
+                            <div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-10">Personal Details</div>
+                                        {% if verification.personal_detail_verified == "NO" %}
+                                            <div class="col-2 text-danger">&#10008</div>
+                                        {% else %}
+                                            <div class="col-2 text-success">&#10004</div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-md-3 mb-2 check-details">
+                        <a class="card card-info nunito font-weight-bold"
+                           href="{% url 'triple_M:mentor-student' reg_no 'exam_record' %}">
+                            <div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-10">Exam Records</div>
+                                        {% if verification.exam_record_verified == "NO" %}
+                                            <div class="col-2 text-danger">&#10008</div>
+                                        {% else %}
+                                            <div class="col-2 text-success">&#10004</div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-md-3 mb-2 check-details">
+                        <a class="card card-info nunito font-weight-bold"
+                           href="{% url 'triple_M:mentor-student' reg_no 'internship_detail' %}">
+                            <div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-10">Internship Details</div>
+                                        {% if verification.internship_verified == "YES" %}
+                                            <div class="col-2 text-success">&#10004</div>
+                                        {% else %}
+                                            <div class="col-2 text-danger">&#10008</div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-md-3 mb-2 check-details">
+                        <a class="card card-info nunito font-weight-bold"
+                           href="{% url 'triple_M:mentor-student' reg_no 'placement_detail' %}">
+                            <div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-10">Placement Details</div>
+                                        {% if verification.placement_verified == "YES" %}
+                                            <div class="col-2 text-success">&#10004</div>
+                                        {% else %}
+                                            <div class="col-2 text-danger">&#10008</div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block footer %}
+    {{ reg_no }}
+{% endblock %}

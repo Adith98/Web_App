@@ -1,0 +1,206 @@
+{% extends "triple_M/base.html" %}
+{% load static %}
+
+
+{% block header %}
+    <div class="login-header">
+        <div class="header-logo">
+            <a href="#">
+                <img class="img-fluid" src="{% static 'triple_M/images/logo.png' %}" alt="Logo-Image"/>
+            </a>
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+
+    {% if login_type == "MenteeLogin" %}
+        <div class="container">
+            <div class="mentee-login">
+                <div class="login-container mt-5">
+                    <div class="card login-card m-auto">
+                        <div class="card-header">
+                            <div class="h4 text-center">Login as a Mentee</div>
+                        </div>
+                        <div class="card-body">
+                            <form method="post" novalidate>
+                                {% csrf_token %}
+                                {{ form.non_field_errors }}
+                                <div class="form-group nunito font-weight-bold">
+                                    <label for="mentee-regno">Register Number</label>
+                                    {{ form.regno }}
+                                </div>
+                                <div class="form-group nunito font-weight-bold">
+                                    <label for="mentee-password">Password</label>
+                                    {{ form.password }}
+                                </div>
+                                <hr class="my-3">
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                                <div class="dropdown-divider"></div>
+                                <a href="#">forgot password?</a>
+                                <div class="error">
+                                    {% if error %}
+                                        <div class="alert alert-danger mt-1" role="alert">
+                                            {{ error|escape }}
+                                        </div>
+                                    {% endif %}
+                                    {% if form.regno.errors %}
+                                        <div class="dropdown-divider"></div>
+                                        {% for error in form.regno.errors %}
+                                            <div class="alert alert-danger mt-1" role="alert">
+                                                Register Number : {{ error|escape }}
+                                            </div>
+                                        {% endfor %}
+                                    {% endif %}
+                                    {% if form.password.errors %}
+                                        <div class="dropdown-divider"></div>
+                                        {% for error in form.password.errors %}
+                                            <div class="alert alert-danger mt-1" role="alert">
+                                                password : {{ error|escape }}
+                                            </div>
+                                        {% endfor %}
+                                    {% endif %}
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    {% elif login_type == "MentorLogin" %}
+        <div class="container">
+            <div class="mentor-login">
+                <div class="login-container mt-5">
+                    <div class="card login-card m-auto">
+                        <div class="card-header">
+                            <div class="h4 text-center">Login as a Mentor</div>
+                        </div>
+                        <div class="card-body">
+                            <form method="post" novalidate>
+                                {% csrf_token %}
+                                {{ form.non_field_errors }}
+                                <div class="form-group nunito font-weight-bold">
+                                    <label for="email">Sakec Email</label>
+                                    {{ form.email }}
+                                </div>
+                                <div class="form-group nunito font-weight-bold">
+                                    <label for="password">Password</label>
+                                    {{ form.password }}
+                                </div>
+                                <hr class="my-3">
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                                <div class="dropdown-divider"></div>
+                                <a href="#">forgot password?</a>
+                                <div class="error">
+                                    {% if error %}
+                                        <div class="alert alert-danger mt-1" role="alert">
+                                            {{ error|escape }}
+                                        </div>
+                                    {% endif %}
+                                    {% if form.email.errors %}
+                                        <div class="dropdown-divider"></div>
+                                        {% for error in form.email.errors %}
+                                            <div class="alert alert-danger mt-1" role="alert">
+                                                Sakec Email : {{ error|escape }}
+                                            </div>
+                                        {% endfor %}
+                                    {% endif %}
+                                    {% if form.password.errors %}
+                                        <div class="dropdown-divider"></div>
+                                        {% for error in form.password.errors %}
+                                            <div class="alert alert-danger mt-1" role="alert">
+                                                password : {{ error|escape }}
+                                            </div>
+                                        {% endfor %}
+                                    {% endif %}
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    {% else %}
+        <div class="container mt-4">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="card-title">
+                                <div class="h6">
+                                    Are you a Mentor
+                                </div>
+                            </div>
+                            <div class="p">
+                                Click the button below to login as a Mentor and manage your mentees via the Mentor
+                                dashboard!
+                            </div>
+                            {# {{ url_for('mentorLogin') }} #}
+                            <a href="{% url 'triple_M:login_type' login_type='MentorLogin' %}" class="card-link">Login
+                                as
+                                a Mentor</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="card-title">
+                                <div class="h6">
+                                    Are you a Mentee
+                                </div>
+                            </div>
+                            <div class="p">
+                                Click the button below to login as a Mentee and manage your records via the Mentee
+                                dashboard!
+                            </div>
+                            {# {{ url_for('menteeLogin') }} #}
+                            <a href="{% url 'triple_M:login_type' login_type='MenteeLogin' %}" class="card-link">Login
+                                as
+                                a Mentee</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="description mt-5">
+            <div class="mentor_dash container">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="p nunito font-weight-bold mt-lg-5">
+                            An easier way for the Mentors to manage their mentees by providing a dashboard which
+                            allows
+                            the mentors
+                            to keep track of the mentee's performance and maintain all the important details of the
+                            mentees.
+                        </div>
+                    </div>
+                    <div class="col-lg-6 text-center">
+                        <img class="img-thumbnail img-login" src="{% static 'triple_M/images/mentor_dash.jfif' %}">
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="mentee_dash mt-3">
+                <div class="row">
+                    <div class="col-lg-6 text-center">
+                        <img class="img-thumbnail img-login" src="{% static 'triple_M/images/student_dash.jpeg' %}">
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="p nunito font-weight-bold mt-lg-5">
+                            For mentees, a way to keep track of their progress and also maintaining their important
+                            documents in an
+                            easier way with the help of an interactive dashboard.
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    {% endif %}
+    </div>
+{% endblock %}

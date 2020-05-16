@@ -1,0 +1,52 @@
+{% extends "triple_M/base.html" %}
+{% load static %}
+
+
+{% block header %}
+    <div class="header bg-info">
+        <nav class="navbar navbar-expand-lg">
+            <div class="text-center col-sm-12 col-lg-auto">
+                <a href="#">
+                    <img src="{% static 'triple_M/images/logo.png' %}" class="img-fluid ml-2" width="250"
+                         style="padding:2% 0 2% 0"
+                         alt="">
+                </a>
+            </div>
+
+            <div class="w-100 m-auto border-sm-top row">
+                <div class="col-auto">
+                    <button class="navbar-toggler" type="button" data-toggle="collapse"
+                            data-target="#navbarTogglerDemo01"
+                            aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+                        <ul class="navbar-nav mr-auto mt-2 mt-lg-0 signika">
+                            <li class="nav-item">
+                                {% block dash %} {% endblock %}
+                            </li>
+                            <li class="nav-item">
+                                {% block nav_1 %} {% endblock %}
+                            </li>
+                            <li class="nav-item">
+                                {% block nav_2 %} {% endblock %}
+                            </li>
+                            <li class="nav-item">
+                                {% block nav_3 %} {% endblock %}
+                            </li>
+                            <li class="nav-item">
+                                {% block nav_4 %} {% endblock %}
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-auto ml-auto">
+                    {% block profile %} {% endblock %}
+                </div>
+
+            </div>
+        </nav>
+
+    </div>
+{% endblock %}
+

@@ -1,0 +1,58 @@
+{% extends "triple_M/mentor/mentor_dash.html" %}
+{% load static %}
+
+{% block content %}
+    <div class="container mt-4">
+        <div class="h5 signika">Contact Mentee</div>
+        {% if error %}
+            <div class="alert alert-danger h5 signika">Mentee hasn't filled the details yet</div>
+        {% endif %}
+        {% if personal_details.email %}
+            <div class="card card-info mt-4">
+                <div class="card-header">
+                    <div class="h6 signika text-secondary">
+                        Contact Information
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="h6 nunito font-weight-bold">
+                        Name: {{ personal_details.admitted_student__first_name }} {{ personal_details.admitted_student__last_name }}</div>
+                    <hr>
+                    <div class="h6 nunito font-weight-bold">Email: {{ personal_details.email }}</div>
+                    <hr>
+                    <div class="h6 nunito font-weight-bold">Phone Number: {{ personal_details.ph_no }}</div>
+                    <hr>
+                    <div class="h6 nunito font-weight-bold">Parent's Phone
+                        Number: {{ personal_details.parent_ph_no }}</div>
+                    <hr>
+                </div>
+            </div>
+        {% endif %}
+        <div class="mt-4 mb-4">
+            <h2 class="h5 mb-0 text-secondary signika ls-1">List of Students</h2>
+        </div>
+
+        <div class="mb-3">
+            <div class="table-responsive table-neo">
+                <table class="table table-hover nunito">
+                    <thead class="thead-dark">
+                    <tr>
+
+                        <th scope="col">Reg No</th>
+                        <th scope="col">Name</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for mentor_student in mentor_students %}
+                        <tr onclick="window.location='{% url 'triple_M:contact-mentee' reg_no=mentor_student.reg_no %}';">
+
+                            <td> {{ mentor_student.reg_no }}  </td>
+                            <td>{{ mentor_student.first_name }} {{ mentor_student.last_name }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

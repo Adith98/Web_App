@@ -1,0 +1,270 @@
+{% extends "triple_M/header.html" %}
+{% load static %}
+
+{% block dash %}
+    <a class="nav-link text-white p-sm-2" href="{% url 'triple_M:mentee-dash' %}">Dashboard</a>
+{% endblock %}
+
+{% block nav_1 %}
+    <a class="nav-link text-white p-sm-2" href="{% url 'triple_M:personal-details' %}">Personal Details</a>
+{% endblock %}
+
+{% block nav_2 %}
+    <a class="nav-link text-white p-sm-2" href="{% url 'triple_M:academic-details' %}">Academics</a>
+{% endblock %}
+
+{% block nav_3 %}
+    <a class="nav-link text-white p-sm-2" href="{% url 'triple_M:internship-details' %}">Internship Details</a>
+{% endblock %}
+
+{% block nav_4 %}
+    <a class="nav-link text-white p-sm-2" href="{% url 'triple_M:placement-details' %}">Placement Details</a>
+{% endblock %}
+
+{% block profile %}
+    <div class="mentor-name text-right">
+        <a class="nav-link text-dark signika" href="#"
+           role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+           aria-expanded="false">
+            {{ mentee.first_name }} {{ mentee.last_name }} &#11206;
+        </a>
+        <div class="dropdown-menu dropdown-menu-right bg-info" aria-labelledby="dropdownMenuLink">
+            <a class="dropdown-item text-white nunito"
+               href="{% url 'triple_M:edit-details' section="personal_details" %}">Edit Details</a>
+            <a class="dropdown-item text-white nunito" href="{% url "triple_M:contact-mentor" %}">Contact Mentor</a>
+            <a class="dropdown-item text-white nunito"
+               href="https://www.shahandanchor.com/home/academic-calendar/">View
+                Academic TimeTable</a>
+            <a class="dropdown-item text-white nunito" href="#">Change Password</a>
+            <a class="dropdown-item text-white nunito" href="{% url 'triple_M:logout' %}">Logout</a></div>
+    </div>
+{% endblock %}
+
+{% block content %}
+    <div class="container mt-4">
+
+        {% if not personal_detail.email %}
+            <div class="h5 signika">
+                <img class="d-inline-block img-thumbnail align-center"
+                     src="{% static 'triple_M/images/photo200x200.jpg' %}" width="80">
+                {{ mentee.first_name }} {{ mentee.last_name }} - Dashboard
+            </div>
+            <div class="status">
+                <div class="alert alert-danger h5 nunito font-weight-bold">
+                    You have no yet filled the Personal details.
+                    <a href="{% url 'triple_M:edit-details' section='personal_details' %}">Fill Personal Details</a>
+                </div>
+            </div>
+        {% endif %}
+        {% if not exam_record.sem_1_cleared %}
+            <div class="status">
+                <div class="alert alert-danger h5 nunito font-weight-bold">
+                    You have no yet filled Exam Details.
+                    <a href="{% url 'triple_M:edit-details' section='exam_records' %}">Fill Exam Records</a>
+                </div>
+            </div>
+        {% endif %}
+        <div class="h5 signika">
+                <img class="d-inline-block img-thumbnail align-center"
+                     src="/media/{{ personal_detail.profile_photo }}" width="80">
+                {{ mentee.first_name }} {{ mentee.last_name }} - Dashboard
+            </div>
+        <div class="mt-4">
+            <div class="row">
+                <div class="col-xl-2 col-6 mb-4">
+                    <div class="card card-info nunito">
+                        <div class="card-body">
+                            <div class="align-items-center">
+                                <div class="h6 font-weight-bold text-secondary mb-2">CGPI Average</div>
+                                <div class="h5 font-weight-bold mb-0 text-gray-800">{{ average }}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-2 col-6 mb-4">
+                    <div class="card card-info nunito">
+                        <div class="card-body">
+                            <div class="align-items-center">
+                                <div class="h6 font-weight-bold text-secondary mb-2">Current Year</div>
+                                <div class="h5 font-weight-bold mb-0 text-gray-800">{{ personal_detail.year }}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-5 col-8 mb-4">
+                    <div class="card card-info nunito">
+                        <div class="card-body">
+                            <div class="align-items-center">
+                                <div class="h6 font-weight-bold text-secondary mb-2">MENTOR</div>
+                                <div class="h5 font-weight-bold mb-0 text-gray-800">{{ mentor_name }}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-4 mb-4">
+                    <div class="card card-info nunito">
+                        <div class="card-body">
+                            <div class="align-items-center">
+                                <div class="h6 font-weight-bold text-secondary mb-2">Total KT</div>
+                                <div class="h5 font-weight-bold mb-0">{{ kt }}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="mt-4 mb-4">
+            <h3 class="h5 mb-0 text-secondary signika">Verification of Details</h3>
+        </div>
+
+        <div class="mb-3">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-3 mb-2">
+                        <div class="card card-info nunito font-weight-bold">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-10">Personal Details</div>
+                                    {% if personal_detail.verified == "NO" %}
+                                        <div class="col-2 text-danger">&#10008</div>
+                                    {% else %}
+                                        <div class="col-2 text-success">&#10004</div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-2">
+                        <div class="card card-info nunito font-weight-bold">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-10">Exam Records</div>
+                                    {% if exam_record.verified == "NO" %}
+                                        <div class="col-2 text-danger">&#10008</div>
+                                    {% else %}
+                                        <div class="col-2 text-success">&#10004</div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-2">
+                        <div class="card card-info nunito font-weight-bold">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-10">Internship Details</div>
+                                    <div class="col-2 text-danger">&#10008</div>
+                                    {# <div class="col-2 text-success">&#10004</div> #}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-2">
+                        <div class="card card-info nunito font-weight-bold">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-10">Placement Details</div>
+                                    <div class="col-2 text-danger">&#10008</div>
+                                    {# <div class="col-2 text-success">&#10004</div> #}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-4 mb-4">
+            <h3 class="h5 mb-0 text-secondary">Semester-wise performance</h3>
+        </div>
+
+        <div class="chart">
+            <div class="card table-neo mb-4">
+                <div class="card-body">
+                    <div class="img-fluid">
+                        <div class="chartjs-size-monitor">
+                            <div class="chartjs-size-monitor-expand">
+                                <div class=""></div>
+                            </div>
+                            <div class="chartjs-size-monitor-shrink">
+                                <div class=""></div>
+                            </div>
+                        </div>
+                        <canvas id="myAreaChart" width="672" height="320" class="chartjs-render-monitor"
+                                style="display: block; width: 672px; height: 320px;"></canvas>
+                    </div>
+                    <hr>
+                    <div class="nunito text-secondary">Average CGPI is <b>{{ average }}</b></div>
+
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+{% endblock %}
+
+
+{% block footer %}
+    MENTEE DASHBOARD
+    {{ regno }}
+{% endblock %}
+
+{% block js %}
+    <script src="{% static 'triple_M/js/Chart.min.js' %}"></script>
+    <script src="{% static 'triple_M/js/chart-area-demo.js' %}"></script>
+    <script>
+        plot([
+            {% if exam_record.sem_1_sgpi %}
+                {{ exam_record.sem_1_sgpi }}
+            {% else %}
+                0
+            {% endif %}
+            ,
+            {% if exam_record.sem_2_sgpi %}
+                {{ exam_record.sem_2_sgpi }}
+            {% else %}
+                0
+            {% endif %}
+            ,
+            {% if exam_record.sem_3_sgpi %}
+                {{ exam_record.sem_3_sgpi }}
+            {% else %}
+                0
+            {% endif %}
+            ,
+            {% if exam_record.sem_4_sgpi %}
+                {{ exam_record.sem_4_sgpi }}
+            {% else %}
+                0
+            {% endif %}
+            ,
+            {% if exam_record.sem_5_sgpi %}
+                {{ exam_record.sem_5_sgpi }}
+            {% else %}
+                0
+            {% endif %}
+            ,
+            {% if exam_record.sem_6_sgpi %}
+                {{ exam_record.sem_6_sgpi }}
+            {% else %}
+                0
+            {% endif %}
+            ,
+            {% if exam_record.sem_7_sgpi %}
+                {{ exam_record.sem_7_sgpi }}
+            {% else %}
+                0
+            {% endif %}
+            ,
+            {% if exam_record.sem_8_sgpi %}
+                {{ exam_record.sem_8_sgpi }}
+            {% else %}
+                0
+            {% endif %}
+        ]);
+
+    </script>
+{% endblock %}

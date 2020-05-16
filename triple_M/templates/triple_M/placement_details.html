@@ -1,0 +1,137 @@
+{% extends "triple_M/mentee_dash.html" %}
+{% load static %}
+{% load filter %}
+
+{% block content %}
+    <div class="container mt-4">
+        <div class="h5 signika">
+            {{ mentee.first_name }} {{ mentee.last_name }} - Placements
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <div class="card card-info nunito">
+                    <div class="card-body">
+                        <div class="align-items-center">
+                            <div class="h6 text-secondary font-weight-bold">Total Number of Placements:</div>
+                            <div class="h6 font-weight-bold">{{ list|length }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="card card-info nunito">
+                    <div class="card-body">
+                        <div class="align-items-center">
+                            <div class="h6 text-secondary font-weight-bold">Verified Placements:</div>
+                            <div class="h6 font-weight-bold">{{ verified }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% if list|length == 0 %}
+            <div class="status mt-4">
+                <div class="alert alert-danger h5 nunito font-weight-bold">
+                    You have no placements added.
+                    <a href="{% url 'triple_M:edit-details' section='placement_details' %}">Enter Placements</a>
+                </div>
+            </div>
+        {% else %}
+            <div class="h5 signika mt-4">
+                List of Placements
+            </div>
+            {% for i in list %}
+                <div class="table-neo p-4 mt-3">
+                    <div class="h5 signika text-secondary">Placement : {{ forloop.counter }}</div>
+                    <hr>
+                    <div class="h5 nunito font-weight-bold row">
+                        <div class="col-xl mt-2">
+                        <span class="align-items-center text-secondary">
+                            Company:
+                        </span>
+                            <span class="align-items-center">
+                            {{ i.company }}
+                        </span>
+                        </div>
+                        <div class="col-xl mt-2">
+                         <span class="align-items-center text-secondary">
+                            Position:
+                        </span>
+                            <span class="align-items-center">
+                            {{ i.position }}
+                        </span>
+                        </div>
+                        <div class="col-xl mt-2">
+                         <span class="align-items-center text-secondary">
+                            CTC:
+                        </span>
+                            <span class="align-items-center">
+                            {{ i.ctc }}
+                        </span>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="h5 signika font-weight-bold">Additional Details:</div>
+                    <div class="h5 nunito font-weight-bold row">
+                        <div class="col-xl mt-2">
+                        <span class="h6 font-weight-bold align-items-center text-secondary">
+                            Bond:
+                        </span>
+                            <span class="align-items-center">
+                            {{ i.bond }}
+                        </span>
+                        </div>
+                        <div class="col-xl mt-2">
+                         <span class="h6 font-weight-bold align-items-center text-secondary">
+                            Location:
+                        </span>
+                            <span class="align-items-center">
+                            {{ i.city }}
+                        </span>
+                        </div>
+                        <div class="col-xl mt-2">
+                         <span class="h6 font-weight-bold align-items-center text-secondary">
+                            Hr Email:
+                        </span>
+                            <span class="align-items-center">
+                            {{ i.hr_email }}
+                        </span>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="h5 signika font-weight-bold">Documents:</div>
+                    <div class="h5 nunito font-weight-bold row">
+                        <div class="col-xl mt-2">
+                        <span class="h6 font-weight-bold align-items-center text-secondary">
+                            Offer Letter:
+                        </span>
+                            <span class="align-items-center">
+                                 <a target="_blank" href="/media/{{ i.offer_letter }}"
+                                    class="btn btn-sm btn-outline-secondary">View</a>
+                        </span>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="h5 signika font-weight-bold">Placed Through:</div>
+                    <div class="h5 nunito font-weight-bold">{{ i.placed_through }}</div>
+                    <hr>
+                    <div class="h5 signika">Verification:</div>
+                    {% if i.verified == "NO" %}
+                        <div class="text-danger">Not Yet Verified By your Mentor {{ mentor_name }}</div>
+                    {% else %}
+                        <div class="text-success">These Details Have Been Verified By your
+                            Mentor {{ mentor_name }}</div>
+                    {% endif %}
+
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+
+{% endblock %}
+
+{% block footer %}
+    Placement Details
+{% endblock %}

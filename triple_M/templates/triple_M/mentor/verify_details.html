@@ -1,0 +1,45 @@
+{% extends "triple_M/mentor/mentor_dash.html" %}
+{% load static %}
+
+{% block content %}
+    <div class="container-fluid mt-4">
+        <div class="row">
+            <div class="col-xl-10 col-md-10 col-lg-10 m-auto">
+                <div class="h5 signika ls-1 mb-4">Status of Verification of Students:</div>
+
+                <div class="mb-3">
+                    <div class="table-responsive table-neo">
+                        <table class="table table-hover nunito">
+                            <thead class="thead-dark">
+                            <tr>
+                                <th scope="col">Reg No</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Personal Details</th>
+                                <th scope="col">Academics</th>
+                                <th scope="col">Internship</th>
+                                <th scope="col">Placement</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for mentor_student in mentor_students %}
+                                <tr onclick="window.location='{% url 'triple_M:mentor-student' reg_no=mentor_student.reg_no %}';">
+                                    <td> {{ mentor_student.reg_no }}  </td>
+                                    <td>{{ mentor_student.first_name }} {{ mentor_student.last_name }}</td>
+                                    <td>{{ mentor_student.personal_detail_verified }}</td>
+                                    <td>{{ mentor_student.exam_record_verified }}</td>
+                                    <td>{{ mentor_student.internship_verified }}</td>
+                                    <td>{{ mentor_student.placement_verified }}</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block footer %}
+    Verify Details
+{% endblock %}

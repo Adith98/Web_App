@@ -1,0 +1,29 @@
+{% extends "triple_M/mentee_dash.html" %}
+{% load static %}
+
+{% block content%}
+    <div class="container mt-4">
+    <div class="h5 signika">Contact Mentor</div>
+
+    <div class="card card-info mt-4">
+        <div class="card-header">
+            <div class="h6 signika text-secondary">
+                Contact Information
+            </div>
+        </div>
+        <div class="card-body">
+            <div class = "h6 nunito font-weight-bold">Name: {{ mentor_name }}</div>
+            <hr>
+            <div class = "h6 nunito font-weight-bold">Email: {{ mentor_contact.mentor_email }}</div>
+            <hr>
+            <div class = "h6 nunito font-weight-bold">Phone Number: {{ mentor_contact.mentor_phone_no }}</div>
+            <hr>
+        </div>
+    </div>
+
+    </div>
+{% endblock %}
+
+{% block footer %}
+    Contact mentor footer
+{% endblock %}

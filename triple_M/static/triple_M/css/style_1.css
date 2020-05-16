@@ -1,0 +1,129 @@
+body {
+    background-color: #ececfa !important;
+}
+
+.nunito {
+    font-family: 'Nunito Sans', sans-serif !important;
+    letter-spacing: 1px;
+}
+
+
+.signika {
+    font-family: 'Signika', sans-serif !important;
+    color: black;
+}
+
+.ls-1 {
+    letter-spacing: 1px;
+}
+
+.dropdown-item:hover {
+    color: gray !important;
+    background-color: transparent;
+!important;
+}
+
+
+.go-back-link {
+    position: fixed;
+    right: 2px;
+    top: 0;
+}
+
+.login-header {
+    width: 300px;
+    margin: auto;
+    padding-top: 40px;
+}
+
+.login-container {
+    width: 80%;
+    margin: auto;
+}
+
+.login-card {
+    box-shadow: 0 .15rem 1.75rem 0 rgba(0, 0, 0, 0.267) !important;
+    margin-top: 20px;
+}
+
+.img-login {
+    width: 200px !important;
+    height: 200px !important;
+}
+
+.description {
+    width: 90%;
+    margin: auto;
+}
+
+.card-info {
+    border: none;
+    background: #ececfa;
+    box-shadow: 5px 5px 17px #afafb9,
+    -5px -5px 17px #ffffff;
+}
+
+.table-neo {
+    border-radius: 7px;
+    background: #ececfa;
+    box-shadow: 5px 5px 10px #d2d2df,
+    -5px -5px 10px #e4e4f1;
+}
+
+.neo {
+    background: #ececfa;
+    box-shadow: 5px 5px 10px #d2d2df,
+    -5px -5px 10px #e4e4f1;
+}
+
+.active {
+    background-color: #666;
+    color: white;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
+.check-details a {
+    color: #6e6e6e;
+}
+
+.check-details a:hover {
+    text-decoration: none;
+    background: rgb(119, 119, 119) !important;
+    color: black;
+}
+
+
+@media (max-width: 576px) {
+    .border-sm-top {
+        border-top: 1px solid #dee2e6 !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .border-sm-top {
+        border-top: 1px solid #dee2e6 !important;
+    }
+}
+
+
+@media (max-width: 992px) {
+    .border-sm-top {
+        border-top: 1px solid #dee2e6 !important;
+    }
+}
+
+
+@media (max-width: 1200px) {
+
+}

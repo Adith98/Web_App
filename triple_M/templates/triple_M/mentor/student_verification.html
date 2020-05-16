@@ -1,0 +1,544 @@
+{% extends "triple_M/mentor/mentor_dash.html" %}
+{% load static %}
+{% load filter %}
+{% block content %}
+    <div class="container mt-4">
+        <a href="{% url 'triple_M:mentor-student' reg_no %}"> Dashboard </a>
+
+        {% if section == 'personal_detail' %}
+            {% if personal_detail.email %}
+                <div class="h5 signika">
+                    <img class="d-inline-block img-thumbnail align-center"
+                         src="/media/{{ personal_detail.profile_photo }}" width="80">
+                    {{ mentee.first_name }} {{ mentee.last_name }} - Personal Details
+                </div>
+                <div class="mt-4">
+                    <div class="h5 signika">Contact Information</div>
+                    <div class="row">
+                        <div class="col-md-4 col-xl-4 col-lg-4 mt-3">
+                            <div class="card card-info">
+                                <div class="card-body">
+                                    <div class="align-items-center">
+                                        <div class="h6 font-weight-bold nunito text-secondary">
+                                            Email:
+                                        </div>
+                                        <div class="h6 nunito font-weight-bold">
+                                            {{ personal_detail.email }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-xl-4 col-lg-4 mt-3">
+                            <div class="card card-info">
+                                <div class="card-body">
+                                    <div class="align-items-center">
+                                        <div class="h6 font-weight-bold nunito text-secondary">
+                                            Phone Number:
+                                        </div>
+                                        <div class="h6 nunito font-weight-bold">
+                                            {{ personal_detail.ph_no }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-xl-4 col-lg-4 mt-3">
+                            <div class="card card-info">
+                                <div class="card-body">
+                                    <div class="align-items-center">
+                                        <div class="h6 font-weight-bold nunito text-secondary">
+                                            Parent's Phone Number:
+                                        </div>
+                                        <div class="h6 nunito font-weight-bold">
+                                            {{ personal_detail.parent_ph_no }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 mt-3">
+                            <div class="card card-info">
+                                <div class="card-body">
+                                    <div class="align-items-center">
+                                        <div class="h6 font-weight-bold nunito text-secondary">
+                                            Address:
+                                        </div>
+                                        <div class="h6 nunito font-weight-bold">
+                                            {{ personal_detail.address }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="h5 signika mt-4">College Specific Information</div>
+                    <div class="row">
+                        <div class="col-md-4 col-xl-4 col-lg-4 mt-3">
+                            <div class="card card-info">
+                                <div class="card-body">
+                                    <div class="align-items-center">
+                                        <div class="h6 font-weight-bold nunito text-secondary">
+                                            Register Number:
+                                        </div>
+                                        <div class="h6 nunito font-weight-bold">
+                                            {{ mentee.reg_no }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-xl-4 col-lg-4 mt-3">
+                            <div class="card card-info">
+                                <div class="card-body">
+                                    <div class="align-items-center">
+                                        <div class="h6 font-weight-bold nunito text-secondary">
+                                            Smart Card Number:
+                                        </div>
+                                        <div class="h6 nunito font-weight-bold">
+                                            C2016IT1652
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-xl-4 col-lg-4 mt-3">
+                            <div class="card card-info">
+                                <div class="card-body">
+                                    <div class="align-items-center">
+                                        <div class="h6 font-weight-bold nunito text-secondary">
+                                            Department:
+                                        </div>
+                                        <div class="h6 nunito font-weight-bold">
+                                            {{ personal_detail.department }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-xl-4 col-lg-4 mt-3">
+                            <div class="card card-info">
+                                <div class="card-body">
+                                    <div class="align-items-center">
+                                        <div class="h6 font-weight-bold nunito text-secondary">
+                                            Year
+                                        </div>
+                                        <div class="h6 nunito font-weight-bold">
+                                            {{ personal_detail.year }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-xl-4 col-lg-4 mt-3">
+                            <div class="card card-info">
+                                <div class="card-body">
+                                    <div class="align-items-center">
+                                        <div class="h6 font-weight-bold nunito text-secondary">
+                                            Division
+                                        </div>
+                                        <div class="h6 nunito font-weight-bold">
+                                            {{ personal_detail.division }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-xl-4 col-lg-4 mt-3">
+                            <div class="card card-info">
+                                <div class="card-body">
+                                    <div class="align-items-center">
+                                        <div class="h6 font-weight-bold nunito text-secondary">
+                                            Roll Number
+                                        </div>
+                                        <div class="h6 nunito font-weight-bold">
+                                            {{ personal_detail.roll_no }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="h5 signika mt-4">General Information</div>
+                    <div class="row">
+                        <div class="col-md-4 col-lg-4 col-xl-4 mt-3">
+                            <div class="card card-info">
+                                <div class="card-body">
+                                    <div class="h6 font-weight-bold nunito text-secondary">
+                                        Date of Birth:
+                                    </div>
+                                    <div class="h6 nunito font-weight-bold">
+                                        {{ personal_detail.dob }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-lg-4 col-xl-4 mt-3">
+                            <div class="card card-info">
+                                <div class="card-body">
+                                    <div class="h6 font-weight-bold nunito text-secondary">
+                                        Gender:
+                                    </div>
+                                    <div class="h6 nunito font-weight-bold">
+                                        {{ personal_detail.gender }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-3">
+                    <div class="btn-group">
+                        <a href="{% url 'triple_M:decision' reg_no section 'approve' 'none' %}"
+                           class="btn btn-success nunito">Approve</a>
+                        <a href="{% url 'triple_M:decision' reg_no section 'disapprove' 'none' %}"
+                           class="btn btn-danger nunito">Disapprove</a>
+                    </div>
+                    {% if personal_detail.verified == "NO" %}
+                        <div class="text-danger h5 nunito font-weight-bold mt-2">Not yet verified by you</div>
+                    {% else %}
+                        <div class="text-success h5 nunito font-weight-bold mt-2">Verified by you</div>
+                    {% endif %}
+                </div>
+            {% else %}
+                <div class="h5 signika">
+                    {{ mentee.first_name }} {{ mentee.last_name }} - Personal Details
+                </div>
+                <div class="alert alert-danger">
+                    Not yet filled by the mentee
+                </div>
+            {% endif %}
+        {% elif section == 'exam_record' %}
+            {% if exam_record.sem_1_cleared %}
+                <div class="h5 signika">
+                    <img class="d-inline-block img-thumbnail align-center"
+                         src="/media/{{ personal_detail.profile_photo }}" width="80">
+                    {{ mentee.first_name }} {{ mentee.last_name }} - Exam Record
+                </div>
+                <div class="mt-4">
+                    <div class="semwise-details table-neo p-4">
+                        <div class="h5 text-secondary signika">
+                            Semester-wise Details
+                        </div>
+                        {% for exam_label,val in exam_record.items %}
+                            {% if forloop.counter <= sem_count %}
+                                {% if forloop.counter|divide:6 %}
+                                    <hr>
+                                    <div class="h5 nunito font-weight-bold text-center">
+                                        Semester {{ forloop.counter|divide:5 }}
+                                    </div>
+                                {% endif %}
+                                <div class="h6 font-weight-bold nunito">
+                        <span class="h6 text-secondary font-weight-bold align-items-center">
+                            Semester {{ exam_label|slice:"6:" }}:
+                        </span>
+                                    {% if forloop.counter == 2 or forloop.counter == 8 or forloop.counter == 14 or forloop.counter == 20 or forloop.counter == 26 or forloop.counter == 32 or forloop.counter == 38 or forloop.counter == 44 %}
+
+                                        <a target="_blank" href="/media/{{ val }}"
+                                           class="btn btn-sm btn-outline-secondary">View</a>
+                                    {% else %}
+                                        {{ val }}
+                                    {% endif %}
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                        <div class="h5 nunito font-weight-bold">
+
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-3">
+                    <div class="btn-group">
+                        <a href="{% url 'triple_M:decision' reg_no section 'approve' 'none' %}"
+                           class="btn btn-success nunito">Approve</a>
+                        <a href="{% url 'triple_M:decision' reg_no section 'disapprove' 'none' %}"
+                           class="btn btn-danger nunito">Disapprove</a>
+                    </div>
+                    {% if exam_record.verified == "NO" %}
+                        <div class="text-danger h5 nunito font-weight-bold mt-2">Not yet verified by you</div>
+                    {% else %}
+                        <div class="text-success h5 nunito font-weight-bold mt-2">Verified by you</div>
+                    {% endif %}
+                </div>
+            {% else %}
+                <div class="h5 signika">
+                    {{ mentee.first_name }} {{ mentee.last_name }} - Exam Record
+                </div>
+                <div class="alert alert-danger">
+                    Not yet filled by the mentee
+                </div>
+            {% endif %}
+        {% elif section == 'internship_detail' %}
+            {% if list|length != 0 %}
+                <div class="h5 signika">
+                    {{ mentee.first_name }} {{ mentee.last_name }} - Internship Details
+                </div>
+                <div class="mt-4">
+                    <div class="h5 signika mt-4">
+                        List of Internships
+                    </div>
+                    {% for i in list %}
+                        <div class="table-neo p-4 mt-3">
+                            <div class="h5 signika text-secondary">Internship : {{ forloop.counter }}</div>
+                            <hr>
+                            <div class="h5 nunito font-weight-bold row">
+                                <div class="col-xl mt-2">
+                        <span class="align-items-center text-secondary">
+                            Company:
+                        </span>
+                                    <span class="align-items-center">
+                            {{ i.company }}
+                        </span>
+                                </div>
+                                <div class="col-xl mt-2">
+                         <span class="align-items-center text-secondary">
+                            Position:
+                        </span>
+                                    <span class="align-items-center">
+                            {{ i.position }}
+                        </span>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="h5 signika font-weight-bold">Duration:</div>
+                            <div class="h5 nunito font-weight-bold row">
+                                <div class="col-xl mt-2">
+                        <span class="h6 font-weight-bold align-items-center text-secondary">
+                            Starting Date:
+                        </span>
+                                    <span class="align-items-center">
+                            {{ i.duration_start }}
+                        </span>
+                                </div>
+                                <div class="col-xl mt-2">
+                         <span class="h6 font-weight-bold align-items-center text-secondary">
+                            Ending Date:
+                        </span>
+                                    <span class="align-items-center">
+                            {{ i.duration_end }}
+                        </span>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="h5 signika font-weight-bold">Documents:</div>
+                            <div class="h5 nunito font-weight-bold row">
+                                <div class="col-xl mt-2">
+                        <span class="h6 font-weight-bold align-items-center text-secondary">
+                            Internship Certificate
+                        </span>
+                                    <span class="align-items-center">
+                            <a target="_blank" href="/media/{{ i.certificate }}"
+                               class="btn btn-sm btn-outline-secondary">View</a>
+                        </span>
+                                </div>
+                                <div class="col-xl mt-2">
+                         <span class="h6 font-weight-bold align-items-center text-secondary">
+                            Evaluation Form:
+                        </span>
+                                    <span class="align-items-center">
+                            <a target="_blank" href="/media/{{ i.intern_eval }}"
+                               class="btn btn-sm btn-outline-secondary">View</a>
+                        </span>
+                                </div>
+                            </div>
+                            <hr>
+                            {{ i.id }}
+                            <div class="mt-3">
+                                <div class="btn-group">
+                                    <a href="{% url 'triple_M:decision' reg_no section 'approve' i.id %}"
+                                       class="btn btn-success nunito">Approve</a>
+                                    <a href="{% url 'triple_M:decision' reg_no section 'disapprove' i.id %}"
+                                       class="btn btn-danger nunito">Disapprove</a>
+                                </div>
+                                {% if i.verified == "NO" %}
+                                    <div class="text-danger h5 nunito font-weight-bold mt-2">Not yet verified by you
+                                    </div>
+                                {% else %}
+                                    <div class="text-success h5 nunito font-weight-bold mt-2">Verified by you</div>
+                                {% endif %}
+                            </div>
+
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="h5 signika">
+                    {{ mentee.first_name }} {{ mentee.last_name }} - Internship Details
+                </div>
+                <div class="alert alert-danger">
+                    Not yet filled by the mentee
+                </div>
+            {% endif %}
+        {% elif section == 'placement_detail' %}
+            {% if placed_list|length != 0 %}
+                <div class="h5 signika">
+                    {{ mentee.first_name }} {{ mentee.last_name }} - Placement Details
+                </div>
+                <div class="mt-4">
+                    <div class="h5 signika">
+                        List of Placements
+                    </div>
+                    {% for i in placed_list %}
+                        <div class="table-neo p-4 mt-3">
+                            <div class="h5 signika text-secondary">Placement : {{ forloop.counter }}</div>
+                            <hr>
+                            <div class="h5 nunito font-weight-bold row">
+                                <div class="col-xl mt-2">
+                        <span class="align-items-center text-secondary">
+                            Company:
+                        </span>
+                                    <span class="align-items-center">
+                            {{ i.company }}
+                        </span>
+                                </div>
+                                <div class="col-xl mt-2">
+                         <span class="align-items-center text-secondary">
+                            Position:
+                        </span>
+                                    <span class="align-items-center">
+                            {{ i.position }}
+                        </span>
+                                </div>
+                                <div class="col-xl mt-2">
+                         <span class="align-items-center text-secondary">
+                            CTC:
+                        </span>
+                                    <span class="align-items-center">
+                            {{ i.ctc }}
+                        </span>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="h5 signika font-weight-bold">Additional Details:</div>
+                            <div class="h5 nunito font-weight-bold row">
+                                <div class="col-xl mt-2">
+                        <span class="h6 font-weight-bold align-items-center text-secondary">
+                            Bond:
+                        </span>
+                                    <span class="align-items-center">
+                            {{ i.bond }}
+                        </span>
+                                </div>
+                                <div class="col-xl mt-2">
+                         <span class="h6 font-weight-bold align-items-center text-secondary">
+                            Location:
+                        </span>
+                                    <span class="align-items-center">
+                            {{ i.city }}
+                        </span>
+                                </div>
+                                <div class="col-xl mt-2">
+                         <span class="h6 font-weight-bold align-items-center text-secondary">
+                            Hr Email:
+                        </span>
+                                    <span class="align-items-center">
+                            {{ i.hr_email }}
+                        </span>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="h5 signika font-weight-bold">Documents:</div>
+                            <div class="h5 nunito font-weight-bold row">
+                                <div class="col-xl mt-2">
+                        <span class="h6 font-weight-bold align-items-center text-secondary">
+                            Offer Letter:
+                        </span>
+                                    <span class="align-items-center">
+                             <a target="_blank" href="/media/{{ i.offer_letter }}"
+                                class="btn btn-sm btn-outline-secondary">View</a>
+                        </span>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="h5 signika font-weight-bold">Placed Through:</div>
+                            <div class="h5 nunito font-weight-bold">{{ i.placed_through }}</div>
+                            <hr>
+                            {{ i.id }}
+                            <div class="mt-3">
+                                <div class="btn-group">
+                                    <a href="{% url 'triple_M:decision' reg_no section 'approve' i.id %}"
+                                       class="btn btn-success nunito">Approve</a>
+                                    <a href="{% url 'triple_M:decision' reg_no section 'disapprove' i.id %}"
+                                       class="btn btn-danger nunito">Disapprove</a>
+                                </div>
+                                {% if i.verified == "NO" %}
+                                    <div class="text-danger h5 nunito font-weight-bold mt-2">Not yet verified by you
+                                    </div>
+                                {% else %}
+                                    <div class="text-success h5 nunito font-weight-bold mt-2">Verified by you</div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="h5 signika">
+                    {{ mentee.first_name }} {{ mentee.last_name }} - Placement Details
+                </div>
+                <div class="alert alert-danger">
+                    Not yet filled by the mentee
+                </div>
+            {% endif %}
+        {% endif %}
+    </div>
+{% endblock %}
+
+{% block footer %}
+    {{ reg_no }}
+{% endblock %}
+{% block js %}
+    <script src="{% static 'triple_M/js/Chart.min.js' %}"></script>
+    <script src="{% static 'triple_M/js/chart-area-demo.js' %}"></script>
+    <script>
+        plot([
+            {% if exam_record.sem_1_sgpi %}
+                {{ exam_record.sem_1_sgpi }}
+            {% else %}
+                0
+            {% endif %}
+            ,
+            {% if exam_record.sem_2_sgpi %}
+                {{ exam_record.sem_2_sgpi }}
+            {% else %}
+                0
+            {% endif %}
+            ,
+            {% if exam_record.sem_3_sgpi %}
+                {{ exam_record.sem_3_sgpi }}
+            {% else %}
+                0
+            {% endif %}
+            ,
+            {% if exam_record.sem_4_sgpi %}
+                {{ exam_record.sem_4_sgpi }}
+            {% else %}
+                0
+            {% endif %}
+            ,
+            {% if exam_record.sem_5_sgpi %}
+                {{ exam_record.sem_5_sgpi }}
+            {% else %}
+                0
+            {% endif %}
+            ,
+            {% if exam_record.sem_6_sgpi %}
+                {{ exam_record.sem_6_sgpi }}
+            {% else %}
+                0
+            {% endif %}
+            ,
+            {% if exam_record.sem_7_sgpi %}
+                {{ exam_record.sem_7_sgpi }}
+            {% else %}
+                0
+            {% endif %}
+            ,
+            {% if exam_record.sem_8_sgpi %}
+                {{ exam_record.sem_8_sgpi }}
+            {% else %}
+                0
+            {% endif %}
+        ]);
+
+    </script>
+{% endblock %}

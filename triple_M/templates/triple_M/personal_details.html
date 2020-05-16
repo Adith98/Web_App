@@ -1,0 +1,210 @@
+{% extends "triple_M/mentee_dash.html" %}
+{% load static %}
+
+{% block content %}
+    <div class="container mt-4">
+        <div class="h5 signika">
+            <img class="d-inline-block img-thumbnail align-center"
+                 src="/media/{{ personal_detail.profile_photo }}" width="80">
+            {{ mentee.first_name }} {{ mentee.last_name }} - Personal Details
+        </div>
+        {% if personal_detail.email %}
+            <div class="status">
+                {% if personal_detail.verified == "NO" %}
+                    <div class="text-danger">Not Yet Verified By your Mentor {{ mentor_name }}</div>
+                {% else %}
+                    <div class="text-success">These Details Have Been Verified By your Mentor {{ mentor_name }}</div>
+                {% endif %}
+            </div>
+            <div class="mt-4">
+                <div class="container">
+                    <div class="h5 signika">Contact Information</div>
+                    <div class="row">
+                        <div class="col-md-4 col-xl-4 col-lg-4 mt-3">
+                            <div class="card card-info">
+                                <div class="card-body">
+                                    <div class="align-items-center">
+                                        <div class="h6 font-weight-bold nunito text-secondary">
+                                            Email:
+                                        </div>
+                                        <div class="h6 nunito font-weight-bold">
+                                            {{ personal_detail.email }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-xl-4 col-lg-4 mt-3">
+                            <div class="card card-info">
+                                <div class="card-body">
+                                    <div class="align-items-center">
+                                        <div class="h6 font-weight-bold nunito text-secondary">
+                                            Phone Number:
+                                        </div>
+                                        <div class="h6 nunito font-weight-bold">
+                                            {{ personal_detail.ph_no }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-xl-4 col-lg-4 mt-3">
+                            <div class="card card-info">
+                                <div class="card-body">
+                                    <div class="align-items-center">
+                                        <div class="h6 font-weight-bold nunito text-secondary">
+                                            Parent's Phone Number:
+                                        </div>
+                                        <div class="h6 nunito font-weight-bold">
+                                            {{ personal_detail.parent_ph_no }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 mt-3">
+                            <div class="card card-info">
+                                <div class="card-body">
+                                    <div class="align-items-center">
+                                        <div class="h6 font-weight-bold nunito text-secondary">
+                                            Address:
+                                        </div>
+                                        <div class="h6 nunito font-weight-bold">
+                                            {{ personal_detail.address }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="h5 signika mt-4">College Specific Information</div>
+                    <div class="row">
+                        <div class="col-md-4 col-xl-4 col-lg-4 mt-3">
+                            <div class="card card-info">
+                                <div class="card-body">
+                                    <div class="align-items-center">
+                                        <div class="h6 font-weight-bold nunito text-secondary">
+                                            Register Number:
+                                        </div>
+                                        <div class="h6 nunito font-weight-bold">
+                                            {{ mentee.reg_no }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-xl-4 col-lg-4 mt-3">
+                            <div class="card card-info">
+                                <div class="card-body">
+                                    <div class="align-items-center">
+                                        <div class="h6 font-weight-bold nunito text-secondary">
+                                            Smart Card Number:
+                                        </div>
+                                        <div class="h6 nunito font-weight-bold">
+                                            C2016IT1652
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-xl-4 col-lg-4 mt-3">
+                            <div class="card card-info">
+                                <div class="card-body">
+                                    <div class="align-items-center">
+                                        <div class="h6 font-weight-bold nunito text-secondary">
+                                            Department:
+                                        </div>
+                                        <div class="h6 nunito font-weight-bold">
+                                            {{ personal_detail.department }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-xl-4 col-lg-4 mt-3">
+                            <div class="card card-info">
+                                <div class="card-body">
+                                    <div class="align-items-center">
+                                        <div class="h6 font-weight-bold nunito text-secondary">
+                                            Year
+                                        </div>
+                                        <div class="h6 nunito font-weight-bold">
+                                            {{ personal_detail.year }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-xl-4 col-lg-4 mt-3">
+                            <div class="card card-info">
+                                <div class="card-body">
+                                    <div class="align-items-center">
+                                        <div class="h6 font-weight-bold nunito text-secondary">
+                                            Division
+                                        </div>
+                                        <div class="h6 nunito font-weight-bold">
+                                            {{ personal_detail.division }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-xl-4 col-lg-4 mt-3">
+                            <div class="card card-info">
+                                <div class="card-body">
+                                    <div class="align-items-center">
+                                        <div class="h6 font-weight-bold nunito text-secondary">
+                                            Roll Number
+                                        </div>
+                                        <div class="h6 nunito font-weight-bold">
+                                            {{ personal_detail.roll_no }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="h5 signika mt-4">General Information</div>
+                    <div class="row">
+                        <div class="col-md-4 col-lg-4 col-xl-4 mt-3">
+                            <div class="card card-info">
+                                <div class="card-body">
+                                    <div class="h6 font-weight-bold nunito text-secondary">
+                                        Date of Birth:
+                                    </div>
+                                    <div class="h6 nunito font-weight-bold">
+                                        {{ personal_detail.dob }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-lg-4 col-xl-4 mt-3">
+                            <div class="card card-info">
+                                <div class="card-body">
+                                    <div class="h6 font-weight-bold nunito text-secondary">
+                                        Gender:
+                                    </div>
+                                    <div class="h6 nunito font-weight-bold">
+                                        {{ personal_detail.gender }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            <div class="status">
+                <div class="alert alert-danger h5 nunito font-weight-bold">
+                    You have no yet filled the Personal details.
+                    <a href="{% url 'triple_M:edit-details' section='personal_details' %}">Fill Personal Details</a>
+                </div>
+            </div>
+        {% endif %}
+
+    </div>
+{% endblock %}
+
+{% block footer %}
+    Academics Details
+{% endblock %}

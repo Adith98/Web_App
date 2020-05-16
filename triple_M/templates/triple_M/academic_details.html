@@ -1,0 +1,127 @@
+{% extends "triple_M/mentee_dash.html" %}
+{% load static %}
+{% load filter %}
+
+{% block content %}
+    <div class="container mt-4">
+        <div class="h5 signika">
+            {{ mentee.first_name }} {{ mentee.last_name }} - Academic Details
+        </div>
+        {% if personal_detail.year %}
+            {% if  exam_record.sem_1_cleared %}
+                <div class="status">
+                    {% if exam_record.verified == "NO" %}
+                        <div class="text-danger">Not Yet Verified By your Mentor {{ mentor_name }}</div>
+                    {% else %}
+                        <div class="text-success">These Details Have Been Verified By your
+                            Mentor {{ mentor_name }}</div>
+                    {% endif %}
+                </div>
+                <div class="mt-4">
+                    <div class="row">
+                        <div class="col-xl-4 col-lg-4 col-md-4 mb-4">
+                            <div class="card card-info nunito">
+                                <div class="card-body">
+                                    <div class="align-items-center">
+                                        <div class="h6 font-weight-bold text-secondary mb-2">CGPI</div>
+                                        <div class="h5 font-weight-bold mb-0 text-gray-800">{{ average }}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-lg-4 col-md-4 mb-4">
+                            <div class="card card-info nunito">
+                                <div class="card-body">
+                                    <div class="align-items-center">
+                                        <div class="h6 font-weight-bold text-secondary mb-2">Year</div>
+                                        <div class="h5 font-weight-bold mb-0 text-gray-800">{{ personal_detail.year }}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-lg-4 col-md-4 mb-4">
+                            <div class="card card-info nunito">
+                                <div class="card-body">
+                                    <div class="align-items-center">
+                                        <div class="h6 font-weight-bold text-secondary mb-2">Total KT</div>
+                                        <div class="h5 font-weight-bold mb-0">{{ kt }}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="semwise-details table-neo p-4">
+                        <div class="h5 text-secondary signika">
+                            Semester-wise Details
+                        </div>
+                        {% for exam_label,val in exam_record.items %}
+                            {% if forloop.counter <= sem_count %}
+                                {% if forloop.counter|divide:6 %}
+                                    <hr>
+                                    <div class="h5 nunito font-weight-bold text-center">
+                                        Semester {{ forloop.counter|divide:5 }}
+                                    </div>
+                                {% endif %}
+                                <div class="h6 font-weight-bold nunito">
+                        <span class="h6 text-secondary font-weight-bold align-items-center">
+                            Semester {{ exam_label|slice:"6:" }}:
+                        </span>
+                                    {% if forloop.counter == 2 or forloop.counter == 8 or forloop.counter == 14 or forloop.counter == 20 or forloop.counter == 26 or forloop.counter == 32 or forloop.counter == 38 or forloop.counter == 44 %}
+
+                                        <a target="_blank" href="/media/{{ val }}"
+                                           class="btn btn-sm btn-outline-secondary">View</a>
+                                    {% else %}
+                                        {{ val }}
+                                    {% endif %}
+
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+
+                    </div>
+                    <div class="h5 sigika mt-4">Analysis</div>
+                    <div class="chart">
+                        <div class="card table-neo mb-4">
+                            <div class="card-body">
+                                <div class="img-fluid">
+                                    <div class="chartjs-size-monitor">
+                                        <div class="chartjs-size-monitor-expand">
+                                            <div class=""></div>
+                                        </div>
+                                        <div class="chartjs-size-monitor-shrink">
+                                            <div class=""></div>
+                                        </div>
+                                    </div>
+                                    <canvas id="myAreaChart" width="672" height="320" class="chartjs-render-monitor"
+                                            style="display: block; width: 672px; height: 320px;"></canvas>
+                                </div>
+                                <hr>
+                                <div class="nunito text-secondary">Average CGPI is <b>{{ average }}</b></div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% else %}
+                <div class="status">
+                    <div class="alert alert-danger h5 nunito font-weight-bold">
+                        You have no yet filled the Exam Details.
+                        <a href="{% url 'triple_M:edit-details' section='exam_records' %}">Fill Exam Records</a>
+                    </div>
+                </div>
+            {% endif %}
+        {% else %}
+            <div class="status">
+                <div class="alert alert-danger h5 nunito font-weight-bold">
+                    You have no yet filled the Personal details.
+                    <a href="{% url 'triple_M:edit-details' section='personal_details' %}">Fill Personal Details</a>
+                </div>
+            </div>
+        {% endif %}
+
+    </div>
+{% endblock %}
+
+{% block footer %}
+    Academics Details
+{% endblock %}

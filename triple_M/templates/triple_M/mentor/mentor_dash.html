@@ -1,0 +1,152 @@
+{% extends "triple_M/header.html" %}
+{% load static %}
+
+
+{% block dash %}
+    <a class="nav-link text-white p-sm-2" href="{% url 'triple_M:mentor-dash' %}">Dashboard</a>
+{% endblock %}
+
+{% block nav_2 %}
+    <a class="nav-link text-white p-sm-2" href="{% url 'triple_M:verify-details' %}">Verify Details</a>
+{% endblock %}
+
+{% block nav_3 %}
+    <div class="dropdown">
+        <a class="nav-link text-white p-sm-2" href="#"
+           role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+           aria-expanded="false">
+            Get Records
+        </a>
+        <div class="dropdown-menu bg-info" aria-labelledby="dropdownMenuLink">
+            <a class="dropdown-item  text-white nunito" href="#">Attendance Records</a>
+            <a class="dropdown-item  text-white nunito" href="{% url 'triple_M:get-placement' %}">Placement Records</a>
+            <a class="dropdown-item  text-white nunito" href="{% url 'triple_M:get-internship' %}">Internship Records</a>
+        </div>
+    </div>
+{% endblock %}
+
+{% block nav_4 %}
+    <a class="nav-link text-white p-sm-2" href="#">Previous Batches</a>
+{% endblock %}
+
+{% block profile %}
+    <div class="mentor-name text-right">
+        <a class="nav-link p-sm-2 signika" href="#"
+           role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+           aria-expanded="false">
+            {{ mentor_details.mentor_name }} &#11206;
+        </a>
+        <div class="dropdown-menu dropdown-menu-right bg-info" aria-labelledby="dropdownMenuLink">
+            <a class="dropdown-item text-white nunito" href="{% url 'triple_M:contact-mentee' %}">Contact Mentee</a>
+            <a class="dropdown-item text-white nunito"
+               href="https://www.shahandanchor.com/home/academic-calendar/">View
+                Academic TimeTable</a>
+            <a class="dropdown-item text-white nunito" href="#">Change Password</a>
+            <a class="dropdown-item text-white nunito" href="{% url 'triple_M:logout' %}">Logout</a></div>
+    </div>
+{% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+
+        <div class="container dashboard-container">
+
+            <div class="mb-4">
+                <h1 class="h4 mb-0 signika ls-1">{{ mentor_details.mentor_name }} - Dashboard</h1>
+            </div>
+
+            <div class="mb-3 row">
+                <div class="col-xl-4 col-md-6 mb-4">
+                    <div class="card card-info nunito">
+                        <div class="card-body">
+                            <div class="align-items-center">
+                                <div class="h6 font-weight-bold text-secondary mb-2">Number of Students</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{ total_students }}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-md-6 mb-4">
+                    <div class="card card-info nunito">
+                        <div class="card-body">
+                            <div class="align-items-center">
+                                <div class="h6 font-weight-bold text-secondary mb-2">Verified Students</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{ verified_students }}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-md-6 mb-4">
+                    <div class="card card-info nunito">
+                        <div class="card-body">
+                            <div class="align-items-center">
+                                <div class="h6 font-weight-bold text-secondary mb-2">Pending Verifications</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{ pending_verifications }}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-md-6 mb-4">
+                    <div class="card card-info nunito">
+                        <div class="card-body">
+                            <div class="align-items-center">
+                                <div class="h6 font-weight-bold text-secondary mb-2">Not Filled</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{ not_filled }}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-md-6 mb-4">
+                    <div class="card card-info nunito">
+                        <div class="card-body">
+                            <div class="align-items-center">
+                                <div class="h6 font-weight-bold text-secondary mb-2">Total Batches Mentored</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800"> {{ mentor_details.mentor_previous_batch }}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-4 mb-4">
+                <h2 class="h5 mb-0 text-secondary signika ls-1">List of Students</h2>
+            </div>
+
+            <div class="mb-3">
+                <div class="table-responsive table-neo">
+                    <table class="table table-hover nunito">
+                        <thead class="thead-dark">
+                        <tr>
+
+                            <th scope="col">Reg No</th>
+                            <th scope="col">Name</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for mentor_student in mentor_students %}
+                            <tr onclick="window.location='{% url 'triple_M:mentor-student' reg_no=mentor_student.reg_no %}';">
+                                <a href="#">
+                                    <td> {{ mentor_student.reg_no }}  </td>
+                                </a>
+                                <a href="#">
+                                    <td>{{ mentor_student.first_name }} {{ mentor_student.last_name }}</td>
+                                </a>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+{% endblock %}
+
+
+
+{% block footer %}
+    Mentor DASHBOARD
+{% endblock %}

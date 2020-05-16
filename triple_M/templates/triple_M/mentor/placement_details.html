@@ -1,0 +1,63 @@
+{% extends "triple_M/mentor/mentor_dash.html" %}
+{% load static %}
+{% load filter %}
+
+{% block content %}
+    <div class="container-fluid mt-3">
+        <div class="mb-4">
+            <h1 class="h4 mb-0 signika ls-1">Mentee Placement Details</h1>
+        </div>
+        {% if placed_students %}
+            <div class="mb-3">
+                <div class="table-responsive table-neo">
+                    <table class="table table-hover nunito">
+                        <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">Mentee Name</th>
+                            <th scope="col">Name of Mentor</th>
+                            <th scope="col">Name of Company</th>
+                            <th scope="col">CTC</th>
+                            <th scope="col">Bond</th>
+                            <th scope="col">Placed Through</th>
+                            <th scope="col">Offer Letter</th>
+                            <th scope="col">Class-RollNo</th>
+                            <th scope="col">Impact Analysis</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for i in placed_students %}
+                            <tr>
+                                <td>{{ i.admitted_student__first_name }} {{ i.admitted_student__last_name }}</td>
+                                <td>{{ i.admitted_student__mentor_mentee__mentor__mentor_name }}</td>
+                                <td>{{ i.company }}</td>
+                                <td>{{ i.ctc }}</td>
+                                <td>{{ i.bond }}</td>
+                                <td>{{ i.placed_through }}</td>
+                                <td>{{ i.offer_letter }}</td>
+                                <td>
+                                    {{ i.admitted_student__personal_detail__year }}{{ i.admitted_student__personal_detail__division }}
+                                    - {{ i.admitted_student__personal_detail__roll_no }}</td>
+                                <td>-</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="text-center">
+                <a href="{% url 'triple_M:export' section='placement_details' %}" class="btn btn-lg btn-outline-success nunito font-weight-bold">
+                    Export to Excel
+                </a>
+            </div>
+
+        {% else %}
+            <div class="alert alert-danger nunito h6 font-weight-bold">
+                None of your mentees have entered any internships.
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}
+
+{% block footer %}
+    Internship Details
+{% endblock %}

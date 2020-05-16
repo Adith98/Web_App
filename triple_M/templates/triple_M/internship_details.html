@@ -1,0 +1,125 @@
+{% extends "triple_M/mentee_dash.html" %}
+{% load static %}
+{% load filter %}
+
+{% block content %}
+    <div class="container mt-4">
+        <div class="h5 signika">
+            {{ mentee.first_name }} {{ mentee.last_name }} - Internships
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <div class="card card-info nunito">
+                    <div class="card-body">
+                        <div class="align-items-center">
+                            <div class="h6 text-secondary font-weight-bold">Total Number of Internships:</div>
+                            <div class="h6 font-weight-bold">{{ list|length }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="card card-info nunito">
+                    <div class="card-body">
+                        <div class="align-items-center">
+                            <div class="h6 text-secondary font-weight-bold">Verified Internships:</div>
+                            <div class="h6 font-weight-bold">{{ verified }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% if list|length == 0 %}
+            <div class="status mt-4">
+                <div class="alert alert-danger h5 nunito font-weight-bold">
+                    You have no Internships added.
+                    <a href="{% url 'triple_M:edit-details' section='internship_details' %}">Enter Internships</a>
+                </div>
+            </div>
+        {% else %}
+            <div class="h5 signika mt-4">
+                List of Internships
+            </div>
+            {% for i in list %}
+                <div class="table-neo p-4 mt-3">
+                    <div class="h5 signika text-secondary">Internship : {{ forloop.counter }}</div>
+                    <hr>
+                    <div class="h5 nunito font-weight-bold row">
+                        <div class="col-xl mt-2">
+                        <span class="align-items-center text-secondary">
+                            Company:
+                        </span>
+                            <span class="align-items-center">
+                            {{ i.company }}
+                        </span>
+                        </div>
+                        <div class="col-xl mt-2">
+                         <span class="align-items-center text-secondary">
+                            Position:
+                        </span>
+                            <span class="align-items-center">
+                            {{ i.position }}
+                        </span>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="h5 signika font-weight-bold">Duration:</div>
+                    <div class="h5 nunito font-weight-bold row">
+                        <div class="col-xl mt-2">
+                        <span class="h6 font-weight-bold align-items-center text-secondary">
+                            Starting Date:
+                        </span>
+                            <span class="align-items-center">
+                            {{ i.duration_start }}
+                        </span>
+                        </div>
+                        <div class="col-xl mt-2">
+                         <span class="h6 font-weight-bold align-items-center text-secondary">
+                            Ending Date:
+                        </span>
+                            <span class="align-items-center">
+                            {{ i.duration_end }}
+                        </span>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="h5 signika font-weight-bold">Documents:</div>
+                    <div class="h5 nunito font-weight-bold row">
+                        <div class="col-xl mt-2">
+                        <span class="h6 font-weight-bold align-items-center text-secondary">
+                            Internship Certificate
+                        </span>
+                            <span class="align-items-center">
+                            <a target="_blank" href="/media/{{ i.certificate }}" class="btn btn-sm btn-outline-secondary">View</a>
+                        </span>
+                        </div>
+                        <div class="col-xl mt-2">
+                         <span class="h6 font-weight-bold align-items-center text-secondary">
+                            Evaluation Form:
+                        </span>
+                            <span class="align-items-center">
+                            <a target="_blank" href="/media/{{ i.intern_eval }}" class="btn btn-sm btn-outline-secondary">View</a>
+                        </span>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="h5 signika">Verification:</div>
+                    {% if i.verified == "NO" %}
+                        <div class="text-danger">Not Yet Verified By your Mentor {{ mentor_name }}</div>
+                    {% else %}
+                        <div class="text-success">These Details Have Been Verified By your
+                            Mentor {{ mentor_name }}</div>
+                    {% endif %}
+
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+
+{% endblock %}
+
+{% block footer %}
+    Internship Details
+{% endblock %}

@@ -1,0 +1,555 @@
+{% extends "triple_M/mentee_dash.html" %}
+{% load static %}
+
+{% block content %}
+    <div class="container">
+        <div class="mt-3 mb-3">
+            <div class="h4 signika text-center">Edit Details</div>
+        </div>
+        <div class="text-center">
+            <div class="row card-info nunito">
+                <a href="{% url 'triple_M:edit-details' section="personal_details" %}"
+                   class="col-sm-6 com-md-3 col-lg-3 col-xl-3 btn btn-light font-weight-bold {{ active.one }}">Personal
+                    Details</a>
+                <a href="{% url 'triple_M:edit-details' section="exam_records" %}"
+                   class="col-sm-6 com-md-3 col-lg-3 col-xl-3 btn btn-light font-weight-bold {{ active.two }}">Exam
+                    Records</a>
+                <a href="{% url 'triple_M:edit-details' section="internship_details" %}"
+                   class="col-sm-6 com-md-3 col-lg-3 col-xl-3 btn btn-light font-weight-bold {{ active.three }}">Internship
+                    Details</a>
+                <a href="{% url 'triple_M:edit-details' section="placement_details" %}"
+                   class="col-sm-6 com-md-3 col-lg-3 col-xl-3 btn btn-light font-weight-bold {{ active.four }}">Placement
+                    Details</a>
+            </div>
+        </div>
+        <div class="container neo">
+            <div class="form-container mt-4">
+                <div class="h5 signika pt-4">
+                    {{ section }}
+                </div>
+                {% if alert %}
+                    <div class="alert alert-warning alert-dismissible fade show signika text-danger" role="alert">
+                        <strong>{{ alert }}</strong>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                {% endif %}
+                {% if success %}
+                    <div class="alert alert-success alert-dismissible fade show signika text-success" role="alert">
+                        <strong>{{ success }}</strong>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                {% endif %}
+                <hr>
+                {% if active.one == 'active' %}
+                    <div class="personal-details-form mt-4 p-lg-4 p-3">
+                        <form method="post" enctype="multipart/form-data" novalidate>
+                            {% csrf_token %}
+                            {{ form.non_field_errors }}
+                            <div class="form-group nunito font-weight-bold">
+                                <label>
+                                    Profile Photo
+                                </label>
+                                {{ form.profile_photo }}
+                                {% if form.profile_photo.errors %}
+                                    {% for error in form.profile_photo.errors %}
+                                        <div class="text-danger">
+                                            {{ error|escape }}
+                                        </div>
+                                    {% endfor %}
+                                {% endif %}
+
+                                {% if error.profile_photo %}
+                                    {% for error in error.profile_photo %}
+                                        <div class="text-danger">
+                                            {{ error }}
+                                        </div>
+                                    {% endfor %}
+                                {% endif %}
+                            </div>
+                            <hr>
+                            <div class="form-group nunito font-weight-bold">
+                                <label>
+                                    Email
+                                </label>
+                                {{ form.email }}
+                                {% if form.email.errors %}
+                                    {% for error in form.email.errors %}
+                                        <div class="text-danger">
+                                            {{ error|escape }}
+                                        </div>
+                                    {% endfor %}
+                                {% endif %}
+
+                                {% if error.email %}
+                                    {% for error in error.email %}
+                                        <div class="text-danger">
+                                            {{ error }}
+                                        </div>
+                                    {% endfor %}
+                                {% endif %}
+                            </div>
+                            <hr>
+                            <div class="form-row">
+                                <div class="form-group nunito col-md-6 font-weight-bold">
+                                    <label>Gender</label>
+                                    {{ form.gender }}
+                                    {% if form.gender.errors %}
+                                        {% for error in form.gender.errors %}
+                                            <div class="text-danger">
+                                                {{ error|escape }}
+                                            </div>
+                                        {% endfor %}
+                                    {% endif %}
+                                    {% if error.gender %}
+                                        {% for error in error.gender %}
+                                            <div class="text-danger">
+                                                {{ error }}
+                                            </div>
+                                        {% endfor %}
+                                    {% endif %}
+
+                                </div>
+                                <div class="form-group nunito col-md-6 font-weight-bold">
+                                    <label>Date Of Birth</label>
+                                    {{ form.dob }}
+                                    {% if form.dob.errors %}
+                                        {% for error in form.dob.errors %}
+                                            <div class="text-danger">
+                                                {{ error|escape }}
+                                            </div>
+                                        {% endfor %}
+                                    {% endif %}
+                                    {% if error.dob %}
+                                        {% for error in error.dob %}
+                                            <div class="text-danger">
+                                                {{ error }}
+                                            </div>
+                                        {% endfor %}
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="form-row">
+                                <div class="form-group nunito col-md-6 font-weight-bold">
+                                    <label>Phone Number</label>
+                                    {{ form.ph_no }}
+                                    {% if form.ph_no.errors %}
+                                        {% for error in form.ph_no.errors %}
+                                            <div class="text-danger">
+                                                {{ error|escape }}
+                                            </div>
+                                        {% endfor %}
+                                    {% endif %}
+                                    {% if error.ph_no %}
+                                        {% for error in error.ph_no %}
+                                            <div class="text-danger">
+                                                {{ error }}
+                                            </div>
+                                        {% endfor %}
+                                    {% endif %}
+                                </div>
+                                <div class="form-group nunito col-md-6 font-weight-bold">
+                                    <label>Parent's Phone Number</label>
+                                    {{ form.parent_ph_no }}
+                                    {% if form.parent_ph_no.errors %}
+                                        {% for error in form.parent_ph_no.errors %}
+                                            <div class="text-danger">
+                                                {{ error|escape }}
+                                            </div>
+                                        {% endfor %}
+                                    {% endif %}
+                                    {% if error.parent_ph_no %}
+                                        {% for error in error.parent_ph_no %}
+                                            <div class="text-danger">
+                                                {{ error }}
+                                            </div>
+                                        {% endfor %}
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="form-group nunito font-weight-bold">
+                                <label>Address</label>
+                                {{ form.address }}
+                                {% if form.address.errors %}
+                                    {% for error in form.address.errors %}
+                                        <div class="text-danger">
+                                            {{ error|escape }}
+                                        </div>
+                                    {% endfor %}
+                                {% endif %}
+                                {% if error.address %}
+                                    {% for error in error.address %}
+                                        <div class="text-danger">
+                                            {{ error }}
+                                        </div>
+                                    {% endfor %}
+                                {% endif %}
+                            </div>
+                            <hr>
+                            <div class="form-row">
+                                <div class="form-group nunito col-md-3 font-weight-bold">
+                                    <label>Department</label>
+                                    {{ form.department }}
+                                    {% if form.department.errors %}
+                                        {% for error in form.department.errors %}
+                                            <div class="text-danger">
+                                                {{ error|escape }}
+                                            </div>
+                                        {% endfor %}
+                                    {% endif %}
+                                    {% if error.department %}
+                                        {% for error in error.department %}
+                                            <div class="text-danger">
+                                                {{ error }}
+                                            </div>
+                                        {% endfor %}
+                                    {% endif %}
+                                </div>
+                                <div class="form-group nunito col-md-3 font-weight-bold">
+                                    <label>Year</label>
+                                    {{ form.year }}
+                                    {% if form.year.errors %}
+                                        {% for error in form.year.errors %}
+                                            <div class="text-danger">
+                                                {{ error|escape }}
+                                            </div>
+                                        {% endfor %}
+                                    {% endif %}
+                                    {% if error.year %}
+                                        {% for error in error.year %}
+                                            <div class="text-danger">
+                                                {{ error }}
+                                            </div>
+                                        {% endfor %}
+                                    {% endif %}
+                                </div>
+                                <div class="form-group nunito col-md-3 font-weight-bold">
+                                    <label>Division</label>
+                                    {{ form.division }}
+                                    {% if form.division.errors %}
+                                        {% for error in form.division.errors %}
+                                            <div class="text-danger">
+                                                {{ error|escape }}
+                                            </div>
+                                        {% endfor %}
+                                    {% endif %}
+                                    {% if error.division %}
+                                        {% for error in error.division %}
+                                            <div class="text-danger">
+                                                {{ error }}
+                                            </div>
+                                        {% endfor %}
+                                    {% endif %}
+                                </div>
+                                <div class="form-group nunito col-md-3 font-weight-bold">
+                                    <label>Roll No</label>
+                                    {{ form.roll_no }}
+                                    {% if form.roll_no.errors %}
+                                        {% for error in form.roll_no.errors %}
+                                            <div class="text-danger">
+                                                {{ error|escape }}
+                                            </div>
+                                        {% endfor %}
+                                    {% endif %}
+                                    {% if error.roll_no %}
+                                        {% for error in error.roll_no %}
+                                            <div class="text-danger">
+                                                {{ error }}
+                                            </div>
+                                        {% endfor %}
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <hr>
+                            <input type="submit" class="btn btn-primary" value="Save Details">
+                        </form>
+                    </div>
+                {% elif active.two == 'active' %}
+                    <div class="exam-records-form pb-4">
+                        <div class="h5 signika text-center">Current Year: {{ exam.year }}</div>
+                        <form method="post" enctype="multipart/form-data" novalidate>
+                            {% csrf_token %}
+                            {{ form.non_field_errors }}
+                            {{ form.errors }}
+                            {% for field in form %}
+                                {% if forloop.counter <= sem_count %}
+                                    <div class="form-group nunito font-weight-bold">
+                                        <label>
+                                            {{ field.label_tag }}
+                                        </label>
+                                        {{ field }}
+                                        {% if field.errors %}
+                                            {% for error in field.errors %}
+                                                <div class="text-danger">
+                                                    {{ error|escape }}
+                                                </div>
+
+                                            {% endfor %}
+                                        {% endif %}
+
+                                        {% if forloop.counter in error %}
+                                            <div class="text-danger">
+                                                This field cannot be empty
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+                            <input type="submit" class="btn btn-primary" value="Save Details">
+                        </form>
+                    </div>
+                {% elif active.three == 'active' %}
+                    <div class="internship-details-form p-3">
+                        {% if id %}
+                            <form method="post" enctype="multipart/form-data" novalidate>
+                                {% csrf_token %}
+                                {{ form.non_field_errors }}
+                                {% for field in form %}
+                                    <div class="form-group nunito font-weight-bold">
+                                        <label>
+                                            {{ field.label_tag }}
+                                        </label>
+                                        {{ field }}
+                                        {% if field.errors %}
+                                            {% for error in field.errors %}
+                                                <div class="text-danger">
+                                                    {{ error|escape }}
+                                                </div>
+
+                                            {% endfor %}
+                                        {% endif %}
+                                    </div>
+                                {% endfor %}
+
+                                <input type="submit" class="btn btn-primary" value="Save Details">
+
+                            </form>
+                        {% else %}
+                            <a class="btn btn-primary nunito mb-3"
+                               href="{% url 'triple_M:edit-details' "internship_details" "new" %}">Add
+                                a new Internship</a>
+                            {% if list|length != 0 %}
+                                <div class="h5 signika">
+                                    Your previously entered internships
+                                </div>
+                                {% for i in list %}
+                                    <div class="table-neo p-4 mt-3">
+                                        <div class="h5 signika text-secondary">
+                                            <span>Internship : {{ forloop.counter }}</span>
+                                            <a class="btn btn-secondary ml-3 nunito"
+                                               href="{% url 'triple_M:edit-details' "internship_details" i.id %}">Edit</a>
+                                        </div>
+                                        <hr>
+                                        <div class=" h5 nunito font-weight-bold row">
+                                            <div class="col-xl mt-2">
+                        <span class="align-items-center text-secondary">
+                            Company:
+                        </span>
+                                                <span class="align-items-center">
+                            {{ i.company }}
+                        </span>
+                                            </div>
+                                            <div class="col-xl mt-2">
+                         <span class="align-items-center text-secondary">
+                            Position:
+                        </span>
+                                                <span class="align-items-center">
+                            {{ i.position }}
+                        </span>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="h5 signika font-weight-bold">Duration:</div>
+                                        <div class="h5 nunito font-weight-bold row">
+                                            <div class="col-xl mt-2">
+                        <span class="h6 font-weight-bold align-items-center text-secondary">
+                            Starting Date:
+                        </span>
+                                                <span class="align-items-center">
+                            {{ i.duration_start }}
+                        </span>
+                                            </div>
+                                            <div class="col-xl mt-2">
+                         <span class="h6 font-weight-bold align-items-center text-secondary">
+                            Ending Date:
+                        </span>
+                                                <span class="align-items-center">
+                            {{ i.duration_end }}
+                        </span>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="h5 signika font-weight-bold">Documents:</div>
+                                        <div class="h5 nunito font-weight-bold row">
+                                            <div class="col-xl mt-2">
+                        <span class="h6 font-weight-bold align-items-center text-secondary">
+                            Internship Certificate
+                        </span>
+                                                <span class="align-items-center">
+                            {{ i.certificate }}
+                        </span>
+                                            </div>
+                                            <div class="col-xl mt-2">
+                         <span class="h6 font-weight-bold align-items-center text-secondary">
+                            Evaluation Form:
+                        </span>
+                                                <span class="align-items-center">
+                            {{ i.intern_eval }}
+                        </span>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="h5 signika">Verification:</div>
+                                        {% if i.verified == "NO" %}
+                                            <div class="text-danger">Not Yet Verified By your
+                                                Mentor {{ mentor_name }}</div>
+                                        {% else %}
+                                            <div class="text-success">These Details Have Been Verified By your
+                                                Mentor {{ mentor_name }}</div>
+                                        {% endif %}
+
+                                    </div>
+                                {% endfor %}
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                {% else %}
+                    <div class="placement-details-form p-3">
+                        {% if id %}
+                            <form method="post" enctype="multipart/form-data" novalidate>
+                                {% csrf_token %}
+                                {{ form.non_field_errors }}
+                                {% for field in form %}
+                                    <div class="form-group nunito font-weight-bold">
+                                        <label>
+                                            {{ field.label_tag }}
+                                        </label>
+                                        {{ field }}
+                                        {% if field.errors %}
+                                            {% for error in field.errors %}
+                                                <div class="text-danger">
+                                                    {{ error|escape }}
+                                                </div>
+
+                                            {% endfor %}
+                                        {% endif %}
+                                    </div>
+                                {% endfor %}
+
+                                <input type="submit" class="btn btn-primary" value="Save Details">
+                            </form>
+                        {% else %}
+                            <a class="btn btn-primary nunito mb-3"
+                               href="{% url 'triple_M:edit-details' "placement_details" "new" %}">Add
+                                a new Placement</a>
+                            {% if placement_list|length != 0 %}
+                                <div class="h5 signika">
+                                    Your previously entered placements
+                                </div>
+                                {% for i in placement_list %}
+                                    <div class="table-neo p-4 mt-3">
+                                        <div class="h5 signika text-secondary">
+                                            <span>Placement : {{ forloop.counter }}</span>
+                                            <a class="btn btn-secondary ml-3 nunito"
+                                               href="{% url 'triple_M:edit-details' "placement_details" i.id %}">Edit</a>
+                                        </div>
+                                        <hr>
+                                        <div class="h5 nunito font-weight-bold row">
+                                            <div class="col-xl mt-2">
+                        <span class="align-items-center text-secondary">
+                            Company:
+                        </span>
+                                                <span class="align-items-center">
+                            {{ i.company }}
+                        </span>
+                                            </div>
+                                            <div class="col-xl mt-2">
+                         <span class="align-items-center text-secondary">
+                            Position:
+                        </span>
+                                                <span class="align-items-center">
+                            {{ i.position }}
+                        </span>
+                                            </div>
+                                            <div class="col-xl mt-2">
+                         <span class="align-items-center text-secondary">
+                            CTC:
+                        </span>
+                                                <span class="align-items-center">
+                            {{ i.ctc }}
+                        </span>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="h5 signika font-weight-bold">Additional Details:</div>
+                                        <div class="h5 nunito font-weight-bold row">
+                                            <div class="col-xl mt-2">
+                        <span class="h6 font-weight-bold align-items-center text-secondary">
+                            Bond:
+                        </span>
+                                                <span class="align-items-center">
+                            {{ i.bond }}
+                        </span>
+                                            </div>
+                                            <div class="col-xl mt-2">
+                         <span class="h6 font-weight-bold align-items-center text-secondary">
+                            Location:
+                        </span>
+                                                <span class="align-items-center">
+                            {{ i.city }}
+                        </span>
+                                            </div>
+                                            <div class="col-xl mt-2">
+                         <span class="h6 font-weight-bold align-items-center text-secondary">
+                            Hr Email:
+                        </span>
+                                                <span class="align-items-center">
+                            {{ i.hr_email }}
+                        </span>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="h5 signika font-weight-bold">Documents:</div>
+                                        <div class="h5 nunito font-weight-bold row">
+                                            <div class="col-xl mt-2">
+                        <span class="h6 font-weight-bold align-items-center text-secondary">
+                            Offer Letter:
+                        </span>
+                                                <span class="align-items-center">
+                            {{ i.offer_letter }}
+                        </span>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="h5 signika font-weight-bold">Placed Through:</div>
+                                        <div class="h5 nunito font-weight-bold">{{ i.placed_through }}</div>
+                                        <hr>
+                                        <div class="h5 signika">Verification:</div>
+                                        {% if i.verified == "NO" %}
+                                            <div class="text-danger">Not Yet Verified By your
+                                                Mentor {{ mentor_name }}</div>
+                                        {% else %}
+                                            <div class="text-success">These Details Have Been Verified By your
+                                                Mentor {{ mentor_name }}</div>
+                                        {% endif %}
+
+                                    </div>
+                                {% endfor %}
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block footer %}
+    Edit Details
+{% endblock %}
+
