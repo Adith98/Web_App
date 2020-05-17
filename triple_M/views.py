@@ -1,4 +1,6 @@
-from django.core.exceptions import ValidationError
+import random
+
+from django.contrib.auth.hashers import check_password, make_password
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.views import generic
