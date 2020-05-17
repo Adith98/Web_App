@@ -26,7 +26,8 @@
         <a class="nav-link text-dark signika" href="#"
            role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
            aria-expanded="false">
-            {{ mentee.first_name }} {{ mentee.last_name }} &#11206;
+            {{ mentee.first_name }} {{ mentee.last_name }} <img class="align-items-center bg-transparent"
+                                                                src="{% static 'triple_M/images/down-arrow.png' %}" width="15">
         </a>
         <div class="dropdown-menu dropdown-menu-right bg-info" aria-labelledby="dropdownMenuLink">
             <a class="dropdown-item text-white nunito"
@@ -35,7 +36,7 @@
             <a class="dropdown-item text-white nunito"
                href="https://www.shahandanchor.com/home/academic-calendar/">View
                 Academic TimeTable</a>
-            <a class="dropdown-item text-white nunito" href="#">Change Password</a>
+            <a class="dropdown-item text-white nunito" href="{% url 'triple_M:change-password' %}">Change Password</a>
             <a class="dropdown-item text-white nunito" href="{% url 'triple_M:logout' %}">Logout</a></div>
     </div>
 {% endblock %}
@@ -65,10 +66,10 @@
             </div>
         {% endif %}
         <div class="h5 signika">
-                <img class="d-inline-block img-thumbnail align-center"
-                     src="/media/{{ personal_detail.profile_photo }}" width="80">
-                {{ mentee.first_name }} {{ mentee.last_name }} - Dashboard
-            </div>
+            <img class="d-inline-block img-thumbnail align-center"
+                 src="/media/{{ personal_detail.profile_photo }}" width="80">
+            {{ mentee.first_name }} {{ mentee.last_name }} - Dashboard
+        </div>
         <div class="mt-4">
             <div class="row">
                 <div class="col-xl-2 col-6 mb-4">

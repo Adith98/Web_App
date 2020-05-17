@@ -30,18 +30,19 @@
 {% endblock %}
 
 {% block profile %}
-    <div class="mentor-name text-right">
+    <div class="mentor-name text-right" style="position:relative;">
         <a class="nav-link p-sm-2 signika" href="#"
            role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
            aria-expanded="false">
-            {{ mentor_details.mentor_name }} &#11206;
+            {{ mentor_details.mentor_name }} <img class="align-items-center bg-transparent"
+                                                                src="{% static 'triple_M/images/down-arrow.png' %}" width="15">
         </a>
         <div class="dropdown-menu dropdown-menu-right bg-info" aria-labelledby="dropdownMenuLink">
             <a class="dropdown-item text-white nunito" href="{% url 'triple_M:contact-mentee' %}">Contact Mentee</a>
             <a class="dropdown-item text-white nunito"
                href="https://www.shahandanchor.com/home/academic-calendar/">View
                 Academic TimeTable</a>
-            <a class="dropdown-item text-white nunito" href="#">Change Password</a>
+            <a class="dropdown-item text-white nunito" href="{% url 'triple_M:change-password' %}">Change Password</a>
             <a class="dropdown-item text-white nunito" href="{% url 'triple_M:logout' %}">Logout</a></div>
     </div>
 {% endblock %}

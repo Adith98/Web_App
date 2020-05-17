@@ -1,6 +1,7 @@
 from django.db import models
 from django.core.exceptions import ValidationError
 from django.utils.deconstruct import deconstructible
+from django.contrib.auth.hashers import make_password
 from datetime import date
 import os, time, random, string
 from uuid import uuid4
@@ -11,7 +12,7 @@ from uuid import uuid4
 class Mentor(models.Model):
     mentor_name = models.CharField(max_length=50)
     mentor_email = models.EmailField()
-    mentor_password = models.CharField(max_length=50)
+    mentor_password = models.CharField(max_length=100)
     mentor_phone_no = models.IntegerField()
     mentor_previous_batch = models.IntegerField()
 
@@ -45,7 +46,7 @@ class Personal_Detail(models.Model):
     ph_no = models.IntegerField(null=True, blank=True)
     parent_ph_no = models.IntegerField(null=True, blank=True)
     address = models.CharField(max_length=1000, null=True, blank=True)
-    profile_photo = models.ImageField(upload_to="profile_photo/", null=True,blank=True)
+    profile_photo = models.ImageField(upload_to="profile_photo/", null=True, blank=True)
     department = models.CharField(max_length=10,
                                   choices=(("IT", "IT"), ("COMPS", "COMPS"), ("ETRX", "ETRX"), ("EXTC", "EXTC")),
                                   null=True, blank=True)

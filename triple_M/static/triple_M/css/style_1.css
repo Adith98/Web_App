@@ -23,6 +23,9 @@ body {
 !important;
 }
 
+.menu{
+    height: 10px!important;
+}
 
 .go-back-link {
     position: fixed;

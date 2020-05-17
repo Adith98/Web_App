@@ -29,6 +29,27 @@ class LoginMentor(forms.Form):
     password.widget.attrs['name'] = "password"
 
 
+class ChangePassword(forms.Form):
+    current_password = forms.CharField(widget=forms.PasswordInput)
+    new_password = forms.CharField(widget=forms.PasswordInput)
+    reenter_new_password = forms.CharField(widget=forms.PasswordInput)
+    current_password.widget.attrs['placeholder'] = "Enter Current Password"
+    current_password.widget.attrs['class'] = "form-control"
+    current_password.widget.attrs['id'] = "current_password"
+    current_password.widget.attrs['name'] = "current_password"
+    new_password.widget.attrs['placeholder'] = "Enter New Password"
+    new_password.widget.attrs['class'] = "form-control"
+    new_password.widget.attrs['id'] = "new_password"
+    new_password.widget.attrs['name'] = "new_password"
+    reenter_new_password.widget.attrs['placeholder'] = "Enter Reenter New Password"
+    reenter_new_password.widget.attrs['class'] = "form-control"
+    reenter_new_password.widget.attrs['id'] = "reenter_new_password"
+    reenter_new_password.widget.attrs['name'] = "reenter_new_password"
+
+
+
+
+
 class SignupMentee(forms.Form):
     pass
 

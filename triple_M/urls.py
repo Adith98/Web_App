@@ -6,6 +6,7 @@ login_type = None
 urlpatterns = [
     path('', views.LoginPage.as_view(), name='login'),
     path('<login_type>/', views.LoginTypePage.as_view(), name='login_type'),
+    path('change_password', views.change_password, name='change-password'),
     path('mentor/mentor-dash', views.MentorDash.as_view(), name='mentor-dash'),
     path('mentor/contact-mentee', views.ContactMentee.as_view(), name='contact-mentee'),
     path('mentor/contact-mentee/<reg_no>', views.ContactSpecificMentee.as_view(), name='contact-mentee'),
@@ -27,4 +28,3 @@ urlpatterns = [
     path('mentee/placement-details', views.PlacementDetails.as_view(), name='placement-details'),
     path('logout', views.logout, name='logout')
 ]
-

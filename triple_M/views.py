@@ -1,17 +1,17 @@
 from django.core.exceptions import ValidationError
 from django.http import HttpResponse
-from django.shortcuts import render, get_object_or_404, redirect, reverse
+from django.shortcuts import render, redirect
 from django.views import generic
-import urllib
+
 from .forms import LoginMentee, LoginMentor, PersonalDetailForm, ExamRecordForm, InternshipDetailForm, \
-    PlacementDetailForm
+    PlacementDetailForm, ChangePassword
 from . import models
 
-import xlwt
+import bcrypt
+
 from openpyxl import Workbook
 from openpyxl.styles import Font
 from datetime import datetime
-from datetime import timedelta
 
 
 # Create your views here.
@@ -670,6 +670,95 @@ class PlacementDetails(generic.TemplateView):
             return redirect('triple_M:login')
 
 
+def change_password(request):
+    if request.method == "GET":
+        if 'mentee-logged-in' in request.session:
+            reg_no = request.session['regno']
+            form = ChangePassword()
+            context = {'form': form, 'reg_no': reg_no}
+            return render(request, 'triple_M/change_password.html', context)
+        elif 'mentor-logged-in' in request.session:
+            email = request.session['email']
+            form = ChangePassword()
+            context = {'form': form, 'email': email}
+            return render(request, 'triple_M/change_password.html', context)
+        else:
+            return redirect('triple_M:login')
+    if request.method == "POST":
+        if 'regno' in request.session:
+            reg_no = request.session['regno']
+            form = ChangePassword(request.POST)
+            if form.is_valid():
+                mentee = models.Admitted_Student.objects.get(reg_no=reg_no)
+                if check_password(form.cleaned_data['current_password'],
+                                  mentee.password) or mentee.password == form.cleaned_data[
+                    'current_password']:
+                    if form.cleaned_data['new_password'] == form.cleaned_data['reenter_new_password']:
+                        password = form.cleaned_data['reenter_new_password']
+                        if len(password) >= 8:
+                            '''
+                            passwd = bytes(password, 'utf-8')
+                            salt = bcrypt.gensalt(random.randint(8, 12))
+                            hashed = bcrypt.hashpw(passwd, salt)
+                            '''
+                            mentee.password = make_password(password)
+                            mentee.save()
+                            request.session.flush()
+                            return redirect('triple_M:login')
+                        else:
+                            context = {'form': form, 'reg_no': reg_no,
+                                       'error': "Password is too short. It should contain atleast 8 characters"}
+                            return render(request, 'triple_M/change_password.html', context)
+
+                    else:
+                        context = {'form': form, 'reg_no': reg_no,
+                                   'error': "New password entered doesn't match with the reentered password"}
+                        return render(request, 'triple_M/change_password.html', context)
+                else:
+                    context = {'form': form, 'reg_no': reg_no, 'error': "Current Password does not match"}
+                    return render(request, 'triple_M/change_password.html', context)
+            else:
+                form = ChangePassword()
+                context = {'form': form, 'reg_no': reg_no}
+                return render(request, 'triple_M/change_password.html', context)
+        if 'email' in request.session:
+            print("YES")
+            email = request.session['email']
+            form = ChangePassword(request.POST)
+            if form.is_valid():
+                mentor = models.Mentor.objects.get(mentor_email=email)
+                if check_password(form.cleaned_data['current_password'],
+                                  mentor.mentor_password) or mentor.mentor_password == form.cleaned_data[
+                    'current_password']:
+                    if form.cleaned_data['new_password'] == form.cleaned_data['reenter_new_password']:
+                        password = form.cleaned_data['reenter_new_password']
+                        if len(password) >= 8:
+                            '''
+                            passwd = bytes(password, 'utf-8')
+                            salt = bcrypt.gensalt(random.randint(8, 12))
+                            hashed = bcrypt.hashpw(passwd, salt)
+                            '''
+                            mentor.mentor_password = make_password(password)
+                            mentor.save()
+                            request.session.flush()
+                            return redirect('triple_M:login')
+                        else:
+                            context = {'form': form, 'email': email,
+                                       'error': "Password is too short. It should contain atleast 8 characters"}
+                            return render(request, 'triple_M/change_password.html', context)
+
+                    else:
+                        context = {'form': form, 'email': email,
+                                   'error': "New password entered doesn't match with the reentered password"}
+                        return render(request, 'triple_M/change_password.html', context)
+                else:
+                    context = {'form': form, 'email': email, 'error': "Current Password does not match"}
+                    return render(request, 'triple_M/change_password.html', context)
+            else:
+                context = {'form': form}
+                return render(request, 'triple_M/change_password.html', context)
+
+
 def logout(request):
     request.session.flush()
     return redirect("triple_M:login")
@@ -704,7 +793,7 @@ def check_exam_form(data, count):
 
 def check_personal_detail_form(data):
     count = 0
-    error = {'profile_photo':[],'email': [], 'gender': [], 'dob': [], 'ph_no': [], 'parent_ph_no': [], 'address': [],
+    error = {'profile_photo': [], 'email': [], 'gender': [], 'dob': [], 'ph_no': [], 'parent_ph_no': [], 'address': [],
              'department': [], 'year': [], 'division': [], 'roll_no': []}
     for key in data.keys():
         if data[key] == None:
@@ -733,7 +822,7 @@ def validate_mentee_login(regno, password):
         student = models.Admitted_Student.objects.get(reg_no=regno)
         field_object = models.Admitted_Student._meta.get_field('password')
         legit_password = field_object.value_from_object(student)
-        if password == legit_password:
+        if check_password(password, legit_password) or password == legit_password:
             return "success"
         else:
             return "Password does not match!"
@@ -745,7 +834,7 @@ def validate_mentee_login(regno, password):
 def validate_mentor_login(email, password):
     try:
         mentor = models.Mentor.objects.get(mentor_email=email)
-        if password == mentor.mentor_password:
+        if check_password(password, mentor.mentor_password) or mentor.mentor_password == password:
             return "success"
         else:
             return "Password does not match!"
