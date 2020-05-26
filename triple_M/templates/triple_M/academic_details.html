@@ -59,7 +59,7 @@
                                 {% if forloop.counter|divide:6 %}
                                     <hr>
                                     <div class="h5 nunito font-weight-bold text-center">
-                                        Semester {{ forloop.counter|divide:5 }}
+                                        Semester {{ forloop.counter|divide:6 }}
                                     </div>
                                 {% endif %}
                                 <div class="h6 font-weight-bold nunito">
@@ -113,7 +113,7 @@
         {% else %}
             <div class="status">
                 <div class="alert alert-danger h5 nunito font-weight-bold">
-                    You have no yet filled the Personal details.
+                    You have not yet filled the Personal details.
                     <a href="{% url 'triple_M:edit-details' section='personal_details' %}">Fill Personal Details</a>
                 </div>
             </div>

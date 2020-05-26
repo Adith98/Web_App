@@ -50,8 +50,13 @@ class Personal_Detail(models.Model):
     department = models.CharField(max_length=10,
                                   choices=(("IT", "IT"), ("COMPS", "COMPS"), ("ETRX", "ETRX"), ("EXTC", "EXTC")),
                                   null=True, blank=True)
+    smart_card_number = models.CharField(max_length=20, blank=True, null=True)
     year = models.CharField(max_length=2, choices=(("FE", "FE"), ("SE", "SE"), ("TE", "TE"), ("BE", "BE")),
                             null=True, blank=True)
+    current_semester = models.CharField(max_length=2,
+                                        choices=(("1", "1"), ("2", "2"), ("3", "3"), ("4", "4"), ("5", "5"), ("6", "6"),
+                                                 ("7", "7"), ("8", "8")),
+                                        null=True, blank=True)
     division = models.CharField(max_length=2,
                                 choices=(("1", "1"), ("2", "2"), ("3", "3"), ("4", "4"), ("5", "5"), ("6", "6")),
                                 null=True, blank=True)

@@ -47,9 +47,6 @@ class ChangePassword(forms.Form):
     reenter_new_password.widget.attrs['name'] = "reenter_new_password"
 
 
-
-
-
 class SignupMentee(forms.Form):
     pass
 
@@ -62,7 +59,7 @@ class PersonalDetailForm(ModelForm):
     class Meta:
         model = Personal_Detail
         fields = ['profile_photo', 'email', 'gender', 'dob', 'ph_no', 'parent_ph_no', 'address', 'department', 'year',
-                  'division',
+                  'division', 'current_semester', 'smart_card_number',
                   'roll_no']
         widgets = {
             'dob': forms.DateInput(format=('%m/%d/%Y'),

@@ -9,8 +9,6 @@ from .forms import LoginMentee, LoginMentor, PersonalDetailForm, ExamRecordForm,
     PlacementDetailForm, ChangePassword
 from . import models
 
-import bcrypt
-
 from openpyxl import Workbook
 from openpyxl.styles import Font
 from datetime import datetime
@@ -124,7 +122,8 @@ class GetInternship(generic.TemplateView):
                                            'duration_start', 'duration_end', 'certificate', 'intern_eval',
                                            'admitted_student__personal_detail__year',
                                            'admitted_student__personal_detail__division',
-                                           'admitted_student__personal_detail__roll_no'))
+                                           'admitted_student__personal_detail__roll_no',
+                                           'position'))
 
             args = {'email': request.session['email'],
                     'mentor_students': request.session['mentor_students'],
@@ -150,7 +149,7 @@ class GetPlacement(generic.TemplateView):
                                            'admitted_student__personal_detail__year',
                                            'admitted_student__personal_detail__division',
                                            'admitted_student__personal_detail__roll_no',
-                                           'company', 'ctc', 'bond', 'placed_through', 'offer_letter'))
+                                           'company', 'ctc', 'bond', 'placed_through', 'offer_letter','position'))
 
             args = {'email': request.session['email'],
                     'mentor_students': request.session['mentor_students'],
@@ -208,7 +207,7 @@ class VerifySpecificCategory(generic.TemplateView):
                     del mentee_exam_record['year']
                     del mentee_exam_record['id']
                     del mentee_exam_record['admitted_student_id']
-                    sem_count = get_sem_count(mentee_personal_detail.year)
+                    sem_count = get_sem_count(mentee_personal_detail.year, mentee_personal_detail.current_semester)
                     args = {'mentee': mentee, 'mentor_details': request.session['mentor_details'],
                             'personal_detail': mentee_personal_detail,
                             'exam_record': mentee_exam_record,
@@ -364,11 +363,13 @@ class MenteeDash(generic.TemplateView):
                 mentor_name = get_mentor_name(mentee['id'])
                 average = get_avg(mentee_exam_record)
                 total_kt = get_kt(mentee_exam_record)
+                verification = verify_all_details(request.session['regno'])
                 args = {'mentee': mentee, 'mentor_name': mentor_name,
                         'personal_detail': mentee_personal_detail,
                         'exam_record': mentee_exam_record,
                         'average': average,
-                        'kt': total_kt}
+                        'kt': total_kt,
+                        'verification': verification}
                 return render(request, self.template_name, args)
 
         else:
@@ -415,7 +416,10 @@ class EditDetails(generic.TemplateView):
                         admitted_student__reg_no=request.session['regno'])
                     sem_count = get_sem_count(
                         models.Personal_Detail.objects.values('year').get(admitted_student_id=exam.admitted_student_id)[
-                            'year']
+                            'year'],
+                        models.Personal_Detail.objects.values('current_semester').get(
+                            admitted_student_id=exam.admitted_student_id)[
+                            'current_semester']
                     )
                     if 'alert' in request.session:
                         del request.session['alert']
@@ -485,7 +489,10 @@ class EditDetails(generic.TemplateView):
                 exam = models.Exam_Record.objects.get(admitted_student__reg_no=request.session['regno'])
                 sem_count = get_sem_count(
                     models.Personal_Detail.objects.values('year').get(admitted_student_id=exam.admitted_student_id)[
-                        'year']
+                        'year'],
+                    models.Personal_Detail.objects.values('current_semester').get(
+                        admitted_student_id=exam.admitted_student_id)[
+                        'current_semester']
                 )
 
                 form = ExamRecordForm(request.POST, request.FILES, instance=exam)
@@ -627,7 +634,7 @@ class AcademicDetails(generic.TemplateView):
             average = get_avg(mentee_exam_record)
             total_kt = get_kt(mentee_exam_record)
             if mentee_personal_detail['year']:
-                sem_count = get_sem_count(mentee_personal_detail['year'])
+                sem_count = get_sem_count(mentee_personal_detail['year'], mentee_personal_detail['current_semester'])
             else:
                 sem_count = 0
             args = {'mentee': mentee, 'mentor_name': mentor_name,
@@ -766,7 +773,7 @@ def logout(request):
     return redirect("triple_M:login")
 
 
-def get_sem_count(year):
+def get_sem_count(year, current_semester):
     if year == "FE":
         sem_count = 2 * 6
 
@@ -778,8 +785,8 @@ def get_sem_count(year):
 
     elif year == "BE":
         sem_count = 8 * 6
-
-    return sem_count
+    print(current_semester)
+    return (int(current_semester) - 1) * 6
 
 
 def check_exam_form(data, count):
@@ -796,9 +803,10 @@ def check_exam_form(data, count):
 def check_personal_detail_form(data):
     count = 0
     error = {'profile_photo': [], 'email': [], 'gender': [], 'dob': [], 'ph_no': [], 'parent_ph_no': [], 'address': [],
-             'department': [], 'year': [], 'division': [], 'roll_no': []}
+             'department': [], 'year': [], 'division': [], 'smart_card_number': [], 'current_semester': [],
+             'roll_no': []}
     for key in data.keys():
-        if data[key] == None:
+        if data[key] is None:
             error[key].append("Cannot be Empty")
             count += 1
 
@@ -1026,7 +1034,8 @@ def export_csv(request, section):
             'duration_start', 'duration_end', 'certificate', 'intern_eval',
             'admitted_student__personal_detail__year',
             'admitted_student__personal_detail__division',
-            'admitted_student__personal_detail__roll_no'
+            'admitted_student__personal_detail__roll_no',
+            'position'
         )
     else:
         name = 'placement_details'
@@ -1044,7 +1053,8 @@ def export_csv(request, section):
             'ctc', 'bond', 'placed_through', 'offer_letter',
             'admitted_student__personal_detail__year',
             'admitted_student__personal_detail__division',
-            'admitted_student__personal_detail__roll_no'
+            'admitted_student__personal_detail__roll_no',
+            'position'
         )
 
     for row in rows:
@@ -1057,7 +1067,7 @@ def export_csv(request, section):
         iteration[5] = row[6]
         iteration[6] = row[7]
         iteration[7] = "{0}{1}-{2}".format(row[8], row[9], row[10])
-        iteration[8] = "-"
+        iteration[8] = row[11]
         rowss.append(iteration)
 
     response = HttpResponse(

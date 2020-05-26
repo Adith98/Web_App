@@ -96,7 +96,7 @@
                                             Smart Card Number:
                                         </div>
                                         <div class="h6 nunito font-weight-bold">
-                                            C2016IT1652
+                                            {{ personal_detail.smart_card_number }}
                                         </div>
                                     </div>
                                 </div>
@@ -116,7 +116,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-4 col-xl-4 col-lg-4 mt-3">
+                        <div class="col-md-3 col-xl-3 col-lg-3 mt-3">
                             <div class="card card-info">
                                 <div class="card-body">
                                     <div class="align-items-center">
@@ -130,7 +130,21 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-4 col-xl-4 col-lg-4 mt-3">
+                        <div class="col-md-3 col-xl-3 col-lg-3 mt-3">
+                            <div class="card card-info">
+                                <div class="card-body">
+                                    <div class="align-items-center">
+                                        <div class="h6 font-weight-bold nunito text-secondary">
+                                            Current Semester:
+                                        </div>
+                                        <div class="h6 nunito font-weight-bold">
+                                            {{ personal_detail.current_semester }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-xl-3 col-lg-3 mt-3">
                             <div class="card card-info">
                                 <div class="card-body">
                                     <div class="align-items-center">
@@ -144,7 +158,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-4 col-xl-4 col-lg-4 mt-3">
+                        <div class="col-md-3 col-xl-3 col-lg-3 mt-3">
                             <div class="card card-info">
                                 <div class="card-body">
                                     <div class="align-items-center">
@@ -225,7 +239,7 @@
                                 {% if forloop.counter|divide:6 %}
                                     <hr>
                                     <div class="h5 nunito font-weight-bold text-center">
-                                        Semester {{ forloop.counter|divide:5 }}
+                                        Semester {{ forloop.counter|divide:6 }}
                                     </div>
                                 {% endif %}
                                 <div class="h6 font-weight-bold nunito">

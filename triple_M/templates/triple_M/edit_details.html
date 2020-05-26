@@ -192,7 +192,7 @@
                             </div>
                             <hr>
                             <div class="form-row">
-                                <div class="form-group nunito col-md-3 font-weight-bold">
+                                <div class="form-group nunito col-md-4 font-weight-bold">
                                     <label>Department</label>
                                     {{ form.department }}
                                     {% if form.department.errors %}
@@ -204,6 +204,24 @@
                                     {% endif %}
                                     {% if error.department %}
                                         {% for error in error.department %}
+                                            <div class="text-danger">
+                                                {{ error }}
+                                            </div>
+                                        {% endfor %}
+                                    {% endif %}
+                                </div>
+                                <div class="form-group nunito col-md-5 font-weight-bold">
+                                    <label>Smart Card Number</label>
+                                    {{ form.smart_card_number }}
+                                    {% if form.smart_card_number.errors %}
+                                        {% for error in form.smart_card_number.errors %}
+                                            <div class="text-danger">
+                                                {{ error|escape }}
+                                            </div>
+                                        {% endfor %}
+                                    {% endif %}
+                                    {% if error.smart_card_number %}
+                                        {% for error in error.smart_card_number %}
                                             <div class="text-danger">
                                                 {{ error }}
                                             </div>
@@ -228,7 +246,25 @@
                                         {% endfor %}
                                     {% endif %}
                                 </div>
-                                <div class="form-group nunito col-md-3 font-weight-bold">
+                                <div class="form-group nunito col-md-4 font-weight-bold">
+                                    <label>Current Semester</label>
+                                    {{ form.current_semester }}
+                                    {% if form.current_semester.errors %}
+                                        {% for error in form.current_semester.errors %}
+                                            <div class="text-danger">
+                                                {{ error|escape }}
+                                            </div>
+                                        {% endfor %}
+                                    {% endif %}
+                                    {% if error.current_semester %}
+                                        {% for error in error.current_semester %}
+                                            <div class="text-danger">
+                                                {{ error }}
+                                            </div>
+                                        {% endfor %}
+                                    {% endif %}
+                                </div>
+                                <div class="form-group nunito col-md-4 font-weight-bold">
                                     <label>Division</label>
                                     {{ form.division }}
                                     {% if form.division.errors %}
@@ -246,7 +282,7 @@
                                         {% endfor %}
                                     {% endif %}
                                 </div>
-                                <div class="form-group nunito col-md-3 font-weight-bold">
+                                <div class="form-group nunito col-md-4 font-weight-bold">
                                     <label>Roll No</label>
                                     {{ form.roll_no }}
                                     {% if form.roll_no.errors %}
